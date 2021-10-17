@@ -1,0 +1,769 @@
+// 皇天城(夜鸦一支舞修改)
+int Rule = 5;
+int RoundTime = 30;
+int PlayerSpawn = 83;
+int PlayerSpawnDir = 45;
+int PlayerWeapon = 24;
+int PlayerWeapon2 = 21;
+int PlayerHP = 2500;
+
+int trg0 = 0;
+int trg1 = 0;
+int trg2 = 0;
+int trg3 = 0;
+int trg4 = 0;
+int trg5 = 0;
+int trg6 = 0;
+int trg7 = 0;
+int trg8 = 0;
+int trg9 = 0;
+int yyyzw = 0;
+int timer0 = 0;
+int timer1 = 0;
+int timer2 = 0;
+
+int hp0 = 0;
+int hp1 = 0;
+int hp2 = 0;
+int hp3 = 0;
+int hp4 = 0;
+
+OnStart()
+{
+	AddNPC("5=1");
+	AddNPC("5=2");
+
+	AddNPC("5=5");
+	AddNPC("5=6");
+	AddNPC("5=7");
+	AddNPC("5=8");
+	AddNPC("5=9");
+}
+
+CallFriend(int c, int c2, int p)
+{
+	if (c>=0 && GetEnemy(c)==p)
+	{
+		ChangeBehavior(c, "follow", p);
+		Perform(c, "guard", 3);
+		Perform(c, "say", "有人闯入，快来人呀！");
+		Perform(c, "say", "你是谁！竟敢乱闯！！");
+		Perform(c, "faceto", p);
+			
+		if (c2 >= 0)
+		{
+			ChangeBehavior(c2, "follow", c);
+		}
+		return 1;
+	}			
+	return 0;
+}
+
+CallFriend2(int c, int c2, int p, int t)
+{
+	if (c>=0 && GetEnemy(c)==p)
+	{
+		ChangeBehavior(c, "follow", p);
+		if (t == 1)
+		{
+			Perform(c, "say", "哈！老子看到你了！");
+		} else
+		{
+			Perform(c, "say", "唷！好戏上场啦！！");
+		}
+		Perform(c, "faceto", p);
+			
+		if (c2 >= 0)
+		{
+			ChangeBehavior(c2, "follow", c);
+		}
+		return 1;
+	}			
+	return 0;
+}
+
+BackGuard(int c, int p, int say)
+{
+	if (c >= 0)
+	{
+		Perform(c, "guard", 100);
+		Perform(c, "faceto", p);
+		ChangeBehavior(c, "dodge", p);
+		
+		if (say == 1)
+		{
+			Perform(c, "say", "施主保重！");
+		} 
+		if (say == 2)
+		{
+			Perform(c, "say", "﹒﹒﹒﹒﹒");
+		}
+		
+		Perform(c, "pause", 4);
+		Perform(c, "faceto", p);				
+					
+		return 1;
+	}
+	return 0;			
+}
+
+PauseAll(int t, int p)
+{
+	int c;
+	c = GetChar("金枪侍卫");
+	if (c >= 0)
+	{
+		Perform(c, "guard", t);
+		Perform(c, "faceto", p);
+	}
+	c = GetChar("大刀侍卫");
+	if (c >= 0)
+	{
+		Perform(c, "guard", t);
+		Perform(c, "faceto", p);
+	}
+	c = GetChar("野和尚﹒甲");
+	if (c >= 0)
+	{
+		Perform(c, "guard", t);
+		Perform(c, "faceto", p);
+	}
+	c = GetChar("野和尚﹒乙");
+	if (c >= 0)
+	{
+		Perform(c, "guard", t);
+		Perform(c, "faceto", p);
+	}
+	c = GetChar("尉迟杯");
+	if (c >= 0)
+	{
+		Perform(c, "guard", t);
+		Perform(c, "faceto", p);
+	}		
+	c = GetChar("蒙面人﹒甲");
+	if (c >= 0)
+	{
+		Perform(c, "guard", t);
+		Perform(c, "faceto", p);
+	}		
+	c = GetChar("蒙面人﹒乙");
+	if (c >= 0)
+	{
+		Perform(c, "guard", t);
+		Perform(c, "faceto", p);
+	}								
+	
+	return 1;
+}
+
+OnUpdate()
+{
+	int player = GetChar("player");
+	if (player < 0)
+	{
+		return 0;
+	}
+	
+	int c;
+	int c2;
+	int c3;
+	int c4;
+	int c5;
+	
+
+	if (yyyzw == 0)
+	{		
+		if (player>0)
+		{
+			PlayerPerform("block", 0);
+			PlayerPerform("crouch", 0);
+			PlayerPerform("say", "玩得愉快……");
+			PlayerPerform("pause", 6);
+			PlayerPerform("say", "欢迎交流指导");
+			PlayerPerform("pause", 1);
+			PlayerPerform("say", "  QQ:  939947468");
+			PlayerPerform("say", "交流群:84147975");
+			PlayerPerform("pause", 4);
+			PlayerPerform("say", "·夜鸦一支舞·制作……");
+			PlayerPerform("crouch", 1);
+			PlayerPerform("block", 1);
+			yyyzw = 1;
+			trg0 =1;
+		}
+	}
+		if (trg0 == 1)
+	{
+		PlayerPerform("block", 0);
+		PlayerPerform("crouch", 0);
+		PlayerPerform("pause", 2);
+		PlayerPerform("say", "祝愉快～");
+		PlayerPerform("pause", 2);
+		PlayerPerform("say", "最后一个人狠狠狠狠很厉害～");
+		PlayerPerform("pause", 2);
+		PlayerPerform("say", "这关很好，没有多少改动～");
+		PlayerPerform("crouch", 1);
+		PlayerPerform("block", 1);
+		trg0 = 2;
+	}
+	
+	if (trg1==0)
+	{
+		c = GetChar("金枪侍卫");
+		c2 = GetChar("大刀侍卫");
+		
+		if (CallFriend(c, c2, player))
+		{
+			trg1 = 1;
+		}		
+		if (trg1==0 && CallFriend(c2, c, player))
+		{
+			trg1 = 1;
+		}
+	}	
+	
+	if (trg2 == 0)
+	{
+		c = GetChar("野和尚﹒甲");
+		c2 = GetChar("野和尚﹒乙");
+		if (CallFriend2(c, c2, player, 1))
+		{
+			trg2 = 1;
+		}		
+		if (trg2==0 && CallFriend2(c2, c, player, 0))
+		{
+			trg2 = 1;
+		}
+	}
+	if (trg2 == 1)
+	{
+		c = GetChar("野和尚﹒甲");
+		c2 = GetChar("野和尚﹒乙");
+		if (c>=0 && c2>=0 && GetEnemy(c)==player && GetEnemy(c2)==player)
+		{
+			Perform(c, "say", "我们两个就陪你玩玩！！");
+			Perform(c, "faceto", player);
+			Perform(c2, "say", "我们两个就陪你玩玩！！");
+			Perform(c2, "faceto", player);
+			trg2 = 2;
+		}	
+	}
+	if (trg2 == 2)
+	{
+		c = GetChar("野和尚﹒甲");
+		c2 = GetChar("野和尚﹒乙");
+		if (c>=0 && GetHP(c)<GetMaxHP(c)/2)
+		{
+			Perform(c, "aggress");
+			Perform(c, "say", "施主还是多去练个几年再来吧！");
+			Perform(c, "faceto", player);
+			trg2 = 3;
+		}
+		if (c2>=0 && GetHP(c2)<GetMaxHP(c2)/2)
+		{
+			Perform(c2, "aggress");
+			Perform(c2, "say", "施主要是再不滚，休怪老纳不客气了！");
+			Perform(c2, "faceto", player);
+			trg2 = 3;
+		}			
+	}
+	
+	if (trg3 == 0)
+	{
+		c = GetChar("尉迟杯");
+		SetTarget(0, "char", player);
+		SetTarget(1, "char", c);
+		if (c>=0 && GetEnemy(c)==player && Distance(0, 1)<100)
+		{
+			ChangeBehavior(c, "kill", player);
+			
+			c2 = GetChar("金枪侍卫");
+			if (c2 >= 0)
+			{
+				ChangeBehavior(c2, "follow", player);
+			}
+			c2 = GetChar("大刀侍卫");
+			if (c2 >= 0)
+			{
+				ChangeBehavior(c2, "follow", player);
+			}			
+			
+			c2 = GetAnyChar("野和尚﹒甲");
+			c3 = GetAnyChar("野和尚﹒乙");	
+			if (c2>=0 && GetHP(c2)<=0 && c3>=0 && GetHP(c3)<=0)
+			{
+				Perform(c, "aggress");
+				Perform(c, "say", "听说你的功夫了得，我就是特地来试试你的身手！放马过来！");
+				Perform(c, "say", "哼！等了许久终於来了！");
+				Perform(c, "faceto", player);
+				
+				PlayerPerform("say", "﹒﹒﹒﹒﹒﹒");
+				PlayerPerform("pause", 5);
+			} else
+			{
+				Perform(c, "say", "退下，他就交给我吧！");
+				c2 = GetChar("野和尚﹒甲");
+				if (BackGuard(c2, player, 1))
+				{
+					hp1 = GetHP(c2);
+				}
+				c2 = GetChar("野和尚﹒乙");
+				if (BackGuard(c2, player, 1))
+				{
+					hp2 = GetHP(c2);
+				}
+				c2 = GetChar("蒙面人﹒甲");
+				if (BackGuard(c2, player, 2))
+				{
+					hp3 = GetHP(c2);
+				}
+				c2 = GetChar("蒙面人﹒乙");
+				if (BackGuard(c2, player, 2))
+				{
+					hp4 = GetHP(c2);
+				}
+				c2 = GetChar("金枪侍卫");
+				BackGuard(c2, player, 0);
+				c2 = GetChar("大刀侍卫");
+				BackGuard(c2, player, 0);				
+			}
+			trg3 = 1;
+		}
+	}
+
+	if (trg3==1 || trg3==2)
+	{
+		c5 = -1;
+		c = GetChar("野和尚﹒甲");
+		c2 = GetChar("野和尚﹒乙");
+		c3 = GetChar("蒙面人﹒甲");
+		c4 = GetChar("蒙面人﹒乙");
+		
+		if (hp1 > 0)
+		{
+			if (c>=0 && GetHP(c)<hp1)
+			{
+				Perform(c, "say", "你自找的！！");
+				Perform(c, "faceto", player);
+				c5 = c;
+			}
+		}
+		if (hp2 > 0)
+		{
+			if (c2>=0 && GetHP(c2)<hp2)
+			{
+				Perform(c2, "say", "找死");
+				Perform(c2, "faceto", player);
+				c5 = c2;
+			}
+		}
+		if (hp3 > 0)
+		{
+			if (c3>=0 && GetHP(c3)<hp3)
+			{
+				Perform(c3, "say", "﹒﹒﹒﹒﹒");
+				Perform(c3, "faceto", player);
+				c5 = c3;
+			}
+		}
+		if (hp4 > 0)
+		{
+			if (c4>=0 && GetHP(c4)<hp4)
+			{
+				Perform(c, "say", "﹒﹒﹒﹒﹒");
+				Perform(c, "faceto", player);
+				c5 = c4;
+			}
+		}
+		if (c5 >= 0)
+		{
+			ChangeBehavior(c, "kill", player);
+			ChangeBehavior(c2, "kill", player);
+			ChangeBehavior(c3, "kill", player);
+			ChangeBehavior(c4, "kill", player);
+			trg3 = 3;
+		}
+	}
+
+	if (trg3 == 1)
+	{
+		c = GetChar("尉迟杯");
+		if (c>=0 && GetHP(c)<GetMaxHP(c)*2/3)
+		{
+			Perform(c, "guard", 4);
+			Perform(c, "say", "哼！果然有两下子！看来我得认真了！");
+			Perform(c, "faceto", player);
+								
+			trg3 = 2;
+		}
+	}
+	if (trg3 == 2)
+	{
+		c = GetChar("尉迟杯");
+		if (c>=0 && GetHP(c)<=0)
+		{
+			c2 = GetChar("野和尚﹒甲");
+			if (c2 >= 0)
+			{
+				ChangeBehavior(c2, "follow", c);
+				Perform(c2, "say", "上！");
+				Perform(c2, "pause", 6);
+				Perform(c2, "say", "撑不住吗？？");
+				Perform(c2, "faceto", c);
+				Perform(c2, "pause", 8);
+			}		
+			c2 = GetChar("野和尚﹒乙");
+			if (c2 >= 0)
+			{
+				ChangeBehavior(c2, "follow", c);
+				Perform(c2, "say", "我来助你一臂之力！");
+				Perform(c2, "pause", 6);
+				Perform(c2, "say", "撑不住吗？？");
+				Perform(c2, "faceto", c);
+				Perform(c2, "pause", 8);
+			}		
+			
+			trg3 = 3;			
+		}		
+	}
+	if (trg3 == 3)
+	{
+		c = GetAnyChar("尉迟杯");
+		if (c>=0 && GetHP(c)<=0)
+		{
+			Say(c, "想不到武林中竟然有如此的高手﹒﹒");
+			trg3 = 4;
+		}
+	}
+	if (trg3 == 4)
+	{		
+		c = GetAnyChar("尉迟杯");
+		if (c>=0 && GetHP(c)<=0)
+		{
+			Say(c, "果然厉害﹒﹒﹒能跟你交手，我死也甘心了﹒﹒﹒");
+			
+			c2 = GetChar("野和尚﹒甲");
+			if (c2 >= 0)
+			{
+			RemoveNPC(c2);
+			}
+			c2 = GetChar("野和尚﹒乙");
+			if (c2 >= 0)
+			{
+			RemoveNPC(c2);
+			}
+			c2 = GetChar("蒙面人﹒甲");
+			if (c2 >= 0)
+			{
+			RemoveNPC(c2);
+			}
+			c2 = GetChar("蒙面人﹒乙");
+			if (c2 >= 0)
+			{
+			RemoveNPC(c2);
+			}			
+			c2 = GetChar("大刀侍卫");
+			if (c2 >= 0)
+			{
+			RemoveNPC(c2);
+			}
+			c2 = GetChar("金枪侍卫");
+			if (c2 >= 0)
+			{
+			RemoveNPC(c2);
+			}			
+			trg3 = 5;
+		}
+	}
+	
+	if (trg4==0 && trg6==0)
+	{
+		c = GetChar("解连环");
+		SetTarget(0, "char", player);
+		SetTarget(1, "char", c);
+		if (c>=0 && GetEnemy(c)==player && Distance(0, 1)<80)
+		{
+			c2 = GetChar("范璇");
+			if (c2 >= 0)
+			{
+				ChangeBehavior(c, "follow", c2);
+				SetTarget(0, "char", c2);
+				ChangeBehavior(c, "attacktarget", 0);
+			}
+			Perform(c, "say", "来人呀！！给我拿下这个刺客！！");
+			Perform(c, "pause", 5);
+			Perform(c, "say", "有我在你休通过这里！");
+			Perform(c, "say", "你﹒﹒﹒竟敢想要行刺'范主子'！");
+			Perform(c, "faceto", player);
+			
+			PlayerPerform("block", 0);
+			PlayerPerform("say", "﹒﹒﹒﹒﹒﹒﹒");
+			PlayerPerform("pause", 3);
+			PlayerPerform("block", 1);
+			
+			c3 = GetChar("尉迟杯");
+			if (c3 >= 0)
+			{
+				ChangeBehavior(c3, "follow", player);
+			}
+			c3 = GetChar("蒙面人﹒甲");
+			if (c3 >= 0)
+			{
+				ChangeBehavior(c3, "follow", player);
+			}
+			c3 = GetChar("蒙面人﹒乙");
+			if (c3 >= 0)
+			{
+				ChangeBehavior(c3, "follow", player);
+			}
+			c3 = GetChar("金枪侍卫");
+			if (c3 >= 0)
+			{
+				ChangeBehavior(c2, "kill", player);
+			}
+			c3 = GetChar("大刀侍卫");
+			if (c2 >= 0)
+			{
+				ChangeBehavior(c2, "kill", player);
+			}						
+			
+			trg4 = 1;
+		}
+	}
+	if (trg4 == 1)
+	{
+		c = GetChar("解连环");
+		c2 = GetChar("范璇");
+		if (c>=0 && c2>=0)
+		{
+			SetTarget(0, "char", c);
+			SetTarget(1, "char", c2);
+			if (Distance(0, 1) < 100)
+			{
+				ChangeBehavior(c, "patrol", 56, 66, 65, 61, 67);
+				Perform(c, "say", "哼！！给我杀了他！");
+				Perform(c, "pause", 5);
+				Perform(c, "faceto", player);
+				Perform(c, "say", "是！！");
+				Perform(c, "pause", 6);
+				Perform(c, "say", "报告主子！有刺客想要行刺您，请您先行离开！！");
+				Perform(c, "faceto", c2);
+				
+				Perform(c2, "say", "留下活口，等我回来我要问个清楚，到底是谁指使的！");
+				Perform(c2, "say", "什麽！！！好大的胆子！竟然有人敢行刺我！");
+				Perform(c2, "pause", 3);
+				Perform(c2, "faceto", c);		
+				trg4 = 2;						
+				timer0 = GetGameTime() + 10;
+			}
+		}		
+	}
+	if (trg4==2 && GetGameTime()>timer0)
+	{
+		c = GetAnyChar("范璇");
+		if (c >= 0)
+		{
+			RemoveNPC(c);
+		}
+		trg4 = 3;
+	}
+	
+	if (trg5 == 0)
+	{		
+		c2 = GetAnyChar("范璇");
+		c = GetChar("解连环");
+		if (c>=0 && GetHP(c)<GetMaxHP(c)/2)
+		{
+			Perform(c, "say", "来人呀！通通给我围住他，把他剁成肉酱喂狗！！");
+			Perform(c, "pause", 3);
+			Perform(c, "say", "今天你别想活的走着出去了！");
+			Perform(c, "say", "好样的﹒﹒﹒竟然能伤的了我！");
+			Perform(c, "faceto", player);
+			AddNPC("5=10");
+			trg5 = 1;			
+		}		
+	}
+
+	if (trg5 == 1)
+	{
+		c = GetAnyChar("解连环");
+		if (c>=0 && GetHP(c)<=0)
+		{
+			Say(c, "呜﹒﹒﹒想不到﹒﹒﹒主子！﹒﹒﹒﹒");
+			trg5 = 2;
+		}
+	}
+	
+		if (trg8 == 0)
+	{
+		c = GetAnyChar("解连环");
+		c2 = GetChar("范璇`南浦");
+		SetTarget(0, "char", player);
+		SetTarget(1, "char", c2);
+		if (c2>=0 && GetEnemy(c2)==player && Distance(0, 1)<100)
+		{
+			Perform(c, "use", 35);
+			ChangeBehavior(c2, "follow", player);
+			
+			Perform(c2, "pause", 2);
+			Perform(c2, "say", "年轻人，太浮躁，看我绝招－－寸拳！！！");
+			Perform(c2, "pause", 2);
+			Perform(c2, "say", "官府想通过柳家，暗算这个敌对，怕是不知我的厉害吧！");
+			Perform(c2, "pause", 2);
+			Perform(c2, "say", "对外大家只知道一个范旋，不曾想我就是十杀之一吧！");
+			Perform(c2, "pause", 2);
+			Perform(c2, "say", "呵﹒﹒小子有点眼光吧！");
+			Perform(c2, "pause", 5);
+			Perform(c2, "say", "哇哈哈哈！");
+			Perform(c2, "faceto", player);
+			
+			
+			PlayerPerform("block", 0);
+			PlayerPerform("use", 2);			
+			PlayerPerform("use", 15);			
+			PlayerPerform("use", 3);			
+			PlayerPerform("use", 4);
+			PlayerPerform("use", 5);			
+			PlayerPerform("pause", 4);
+			PlayerPerform("say", "不管怎样，我已经走过来了，拼了！");
+			PlayerPerform("pause", 6);
+			PlayerPerform("say", "南浦？你就是“十杀”中的一个？");
+			PlayerPerform("pause", 3);
+			PlayerPerform("block", 1);
+			trg8 = 1;
+		}
+	}	
+	if (trg6==0 && trg4==0)
+	{
+		c = GetChar("范璇");
+		SetTarget(0, "char", player);
+		SetTarget(1, "char", c);
+		if (c>=0 && GetEnemy(c)==player && Distance(0, 1)<100)
+		{
+			c2 = GetChar("解连环");
+			if (c2 >= 0)
+			{
+				ChangeBehavior(c, "follow", c2);
+				SetTarget(0, "char", c2);
+				ChangeBehavior(c, "attacktarget", 0);
+			}
+			Perform(c, "say", "想行刺我！没那麽容易！护驾！有刺客！！");
+			Perform(c, "pause", 6);
+			Perform(c, "say", "你﹒﹒﹒你是谁！！");
+			Perform(c, "faceto", player);
+
+			PlayerPerform("block", 0);		
+			PlayerPerform("say", "想逃！！");
+			PlayerPerform("pause", 6);			
+			PlayerPerform("say", "﹒﹒﹒我的名字不重要，重要的是，我是来取你狗命的！");
+			PlayerPerform("pause", 3);	
+			PlayerPerform("block", 1);		
+			
+			PauseAll(10, player);
+			
+			trg6 = 1;
+		}
+	}
+	
+	if (trg6 == 1)
+	{
+		c = GetChar("范璇");
+		c2 = GetChar("解连环");
+		if (c>=0 && c2>=0)
+		{
+			SetTarget(0, "char", c);
+			SetTarget(1, "char", c2);
+			if (Distance(0, 1) < 120)
+			{
+				Perform(c2, "say", "杀了他！！");
+				Perform(c2, "aggress");
+				Perform(c2, "faceto", player);
+				Perform(c2, "say", "是！！");
+				Perform(c2, "pause", 8);
+				Perform(c2, "say", "主子！请您先行离开，这里由我来就好！");
+				Perform(c2, "say", "刺客！！所有人快把刺客拿下！！");
+				Perform(c2, "faceto", c);
+				
+				SetTarget(0, "waypoint", 73);
+				ChangeBehavior(c, "attacktarget", 0);
+				Perform(c, "say", "让他死之前，先给我问出主使者是谁！");
+				Perform(c, "say", "好！我先去避一避，这里就交给你了！");
+				Perform(c, "pause", 4);
+				Perform(c, "faceto", c2);
+				
+				PlayerPerform("say", "﹒﹒﹒﹒﹒﹒﹒");
+				PlayerPerform("pause", 3);
+			
+				c3 = GetChar("尉迟杯");
+				if (c3 >= 0)
+				{
+					ChangeBehavior(c3, "follow", player);
+				}
+				c3 = GetChar("蒙面人﹒甲");
+				if (c3 >= 0)
+				{
+					ChangeBehavior(c3, "follow", player);
+				}
+				c3 = GetChar("蒙面人﹒乙");
+				if (c3 >= 0)
+				{
+					ChangeBehavior(c3, "follow", player);
+				}
+							
+				trg6 = 2;
+				timer0 = GetGameTime() + 6;
+			}
+		}
+	}
+	if (trg6==2 && GetGameTime()>timer0)
+	{
+		c = GetAnyChar("范璇");
+		if (c >= 0)
+		{
+			RemoveNPC(c);
+		}
+		trg6 = 3;
+	}	
+	
+	if (trg7 == 0)	
+	{
+		c = GetAnyChar("金枪侍卫");
+		c2 = GetAnyChar("大刀侍卫");		
+		c3 = GetAnyChar("野和尚﹒甲");
+		c4 = GetAnyChar("野和尚﹒乙");
+		if (c>=0 && GetHP(c)<=0 && c2>=0 && GetHP(c2)<=0 && c3>=0 && GetHP(c3)<=0 && c4>=0 && GetHP(c4)<=0)
+		{
+			RemoveNPC(c);
+			RemoveNPC(c2);
+			RemoveNPC(c3);
+			RemoveNPC(c4);			
+			trg7 = 1;
+			timer1 = GetGameTime() + 5;
+		}
+	}
+	if (trg7 == 1)
+	{
+		if (GetGameTime() > timer1)
+		{
+			AddNPC("5=3");
+			AddNPC("5=4");
+			trg7 = 2;
+		}
+	}
+			if (trg9 == 0)
+	{
+		c2 = GetChar("范璇`南浦");
+		if (c2>=0 && GetHP(c2)>10)
+		{	
+		trg9 = 1;
+		}
+	}
+	if (trg9 == 1)
+	{
+		c2 = GetChar("范璇`南浦");
+		if (c2>=0 && GetHP(c2)<=0)
+		{
+				GameOver(1);
+				trg9 = 2;
+		}
+	}
+}

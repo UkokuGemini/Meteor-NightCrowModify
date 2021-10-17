@@ -1,0 +1,616 @@
+// 金华城(夜鸦一支舞制作)
+int Rule = 0;
+int Roundte = 15;
+int PlayerSpawn = 143;
+int PlayerSpawnDir = 0;
+int PlayerWeapon = 6;
+int PlayerWeapon2 = 17;
+int PlayerHP = 3000;
+
+int trg0 = 0;
+int trg1 = 0;
+int trg2 = 0;
+int trg3 = 0;
+int trg4 = 0;
+int trg5 = 0;
+int trg6 = 0;
+int trg7 = 0;
+int trg8 = 0;
+int trg9 = 0;
+int trg10 = 0;
+int trg11 = 0;
+int trg12 = 0;
+int trg13 = 0;
+int trg14 = 0;
+int yyyzw = 0;
+int t;
+int reborn = -1;
+string rebornName;
+
+
+OnStart()
+{
+	AddNPC("13=1");
+	AddNPC("13=2");
+	AddNPC("13=3");
+	AddNPC("13=4");
+	AddNPC("13=6");
+
+}
+
+OnUpdate()
+{
+	int player = GetChar("player");
+	if (player < 0)
+	{
+		return 0;
+  }
+
+	int c;
+	int c2;
+	int c3;
+	int c4;
+	int c5;
+	int c6;
+	int c7;
+	int now = GetGameTime();
+
+	if (yyyzw == 0)
+	{
+		if (now>2)
+		{
+			PlayerPerform("pause", 8);
+			PlayerPerform("say", "玩得愉快……");
+			PlayerPerform("pause", 8);
+			PlayerPerform("say", "欢迎交流指导");
+			PlayerPerform("pause", 1);
+			PlayerPerform("say", "  QQ:  939947468");
+						PlayerPerform("block", 0);
+			PlayerPerform("say", "交流群:84147975");
+			PlayerPerform("pause", 4);
+			PlayerPerform("say", "·夜鸦一支舞·制作……");
+			PlayerPerform("block", 1);
+			yyyzw = 1;
+		}
+	}
+	if (trg0 == 0)
+	{
+		c = GetChar("王卫");
+		if (GetHP(c)>1000)
+		{
+			trg0 = 1;
+			t = now + 10;
+		}
+	}
+	if (trg0 == 1)
+	{
+		c = GetChar("王卫");
+		c2 = GetChar("门卫·生查子");
+		c4 = GetChar("门卫·青门引");
+		if (now>t && GetHP(c)>1000 && GetHP(c2)<=0 && GetHP(c4)<=0)
+		{
+				Perform(c, "say", "你们顶住");
+				Perform(c, "pause",2);
+				Perform(c, "say", "我要找哥哥去！");
+				Perform(c, "use",6);
+			trg0 = 2;
+		}
+	}
+	if (trg0 == 2)
+	{
+		c2 = GetAnyChar("门卫·生查子");
+		c4 = GetAnyChar("门卫·青门引");
+		c = GetChar("王卫");
+		if (c>=0)
+		{
+		Perform(c, "say", "大内高手都出来！！");
+		AddNPC("13=5");
+		AddNPC("13=8");
+		AddNPC("13=7");
+		RemoveNPC(c2);
+		RemoveNPC(c4);
+			trg0 = 3;
+		}
+	}
+	if (trg1 == 0)
+	{
+		c2 = GetAnyChar("大内高手·鹧鸪天");
+		c4 = GetAnyChar("大内高手·风敲竹");
+		c3 = GetAnyChar("大内高手·剑器近");
+		c = GetChar("王卫");
+		if (GetHP(c)>1000 && GetHP(c2)>0 && GetHP(c3)>0 &&  GetHP(c4)>0)
+		{
+			Perform(c, "say", "上");
+			trg1 = 1;
+		}
+	}
+	if (trg1 == 1)
+	{
+		c2 = GetAnyChar("大内高手·鹧鸪天");
+		c4 = GetAnyChar("大内高手·风敲竹");
+		c3 = GetAnyChar("大内高手·剑器近");
+		c = GetChar("王卫");
+		if (GetHP(c2)<=0 && GetHP(c3)<=0 &&  GetHP(c4)<=0)
+		{
+			Perform(c, "use", 1);
+						Perform(c, "use", 1);
+			Perform(c, "say", "什么？");
+			trg1 = 2;
+			t = now + 10;
+
+		}
+	}
+	if (trg1 == 2)
+	{
+		c2 = GetAnyChar("大内高手·鹧鸪天");
+		c4 = GetAnyChar("大内高手·风敲竹");
+		c3 = GetAnyChar("大内高手·剑器近");
+		c = GetChar("王卫");
+		if (now>t)
+		{
+			Perform(c, "say", "金华城可是军队最多的的地方");
+			Perform(c, "pause", 1);
+			Perform(c, "say", "你们别得意太早……");
+		      	RemoveNPC(c2);
+		        	RemoveNPC(c4);
+		        	RemoveNPC(c3);
+			trg1 = 3;
+			t = now + 10;
+		}
+	}
+	if (trg1 == 3)
+	{
+			c = GetChar("焰");
+			c3 = GetChar("夜猫子");
+		c = GetChar("王卫");
+		if (now>t && c>0)
+		{
+		AddNPC("13=22");
+		AddNPC("13=21");
+		AddNPC("13=20");
+		AddNPC("13=19");
+			Perform(c3, "say", "我也去");
+			Perform(c3, "pause", 5);
+			Perform(c2, "say", "我去那边阻止军队进城");
+			trg1 = 4;
+
+		}
+	}
+		if (trg2 == 0)
+	{
+		c3 = GetChar("王卫");
+		c = GetChar("小兵");
+		c2 = GetChar("小兵…");
+		if (c>0 && c2>0)
+		{
+			Perform(c, "follow", player);
+			Perform(c2, "follow", c3);
+			trg2 = 1;
+
+		}
+	}
+	if (trg2 == 1)
+	{
+		c = GetChar("焰");
+		c2 = GetChar("小兵·");
+		c3 = GetChar("夜猫子");
+		c4 = GetChar("…小兵");
+		if (c>0 && c2>0)
+		{
+			Perform(c, "follow", c2);
+			Perform(c2, "follow", c);
+			trg2 = 2;
+
+		}
+		if (c3>0 && c4>0)
+		{
+			Perform(c3, "follow", c4);
+			Perform(c4, "follow", c3);
+			trg2 = 2;
+			t = now + 12;
+		}
+	}
+	if (trg2 == 2)
+	{
+		if (now>t)
+		{
+			trg2 = 0;
+		}
+	}
+	if (trg3==0 && trg4==1)
+	{
+		c2 = GetAnyChar("小兵");
+		if (c2>=0 && GetHP(c2)<=0)
+		{
+			reborn = c2;
+			rebornName = "npc4=20";
+			trg3 = 1;
+			t = now + 1;
+		}
+		c3 = GetAnyChar("…小兵");
+		if (c3>=0 && GetHP(c3)<=0)
+		{
+			reborn = c3;
+			rebornName = "npc4=21";
+			trg3 = 1;
+			t = now + 1;
+		}
+		c4 = GetAnyChar("小兵·");
+		if (c4>=0 && GetHP(c4)<=0)
+		{
+			reborn = c4;
+			rebornName = "npc4=22";
+			trg3 = 1;
+			t = now + 1;
+		}
+		c5 = GetAnyChar("小兵…");
+		if (c5>=0 && GetHP(c5)<=0)
+		{
+			reborn = c5;
+			rebornName = "npc4=19";
+			trg3 = 1;
+			t = now + 1;
+		}
+	}
+	if (trg3==1 && now>t)
+	{
+		RemoveNPC(reborn);
+		t = now + 1;
+		trg3 = 2;
+	}
+	if (trg3==2 && now>t)
+	{
+		AddNPC(rebornName);
+		trg3 = 0;
+	}
+		if (trg4 == 0)
+	{
+		c = GetChar("王卫");
+		if (GetHP(c)>1 && GetHP(c)<500)
+		{
+			AddNPC("13=100");
+			trg4 = 1;
+			t = now + 10;
+		}
+	}
+		if (trg4 == 1)
+	{
+		c = GetChar("王卫");
+		if (now>t)
+		{
+			Perform(c,"say", "我撤！");
+			trg4 = 2;
+			t = now + 10;
+		}
+	}
+			if (trg4 == 2)
+	{
+		c = GetChar("王卫");
+		if (now>t)
+		{
+		RemoveNPC(c3);
+			trg4 = 3;
+		}
+	}
+	if (trg5==0)
+	{
+		c = GetChar("王强");
+		if (c>0 && GetHP(c)<=2000)
+		{
+			Perform(c,"use",3);
+			Perform(c,"use",4);
+			Perform(c,"use",33);
+			trg5 = 1;
+		}
+	}
+		if (trg5==1)
+	{
+		c = GetChar("王强");
+		if (c>0 && GetHP(c)<=1000)
+		{
+		AddNPC("13=101");
+			trg5 = 2;
+		}
+	}
+			if (trg5==2)
+	{
+		c2 = GetChar("王强");
+		c = GetChar("八归");
+		if (c>0)
+		{
+		RemoveNPC(c2);
+		Perform(c,"say", "小子身手不错，叫我来让你领略真正的武艺！");
+		ChangeBehavior(c, "follow",1);
+		PlayerPerform("use",40);
+			trg5 = 3;
+		}
+	}
+	if (trg6 == 0)
+	{
+		c = GetChar("王强");
+		if (c>=0 && GetHP(c)>1000 && GetHP(player)<500)
+		{
+			AddNPC("13=24");
+			AddNPC("13=23");
+			trg6 = 1;
+		}
+	}
+	if (trg6 == 1)
+	{
+		c = GetChar("王强");
+		c2 = GetChar("柳梢青的幻影");
+		if (c2>=0 && c2>=0)
+		{
+		ChangeBehavior(c2,"follow",1);
+			trg6 = 2;
+		}
+	}
+		if (trg6 == 2)
+	{
+		c = GetChar("王强");
+		c2 = GetChar("柳梢青的幻影");
+		c3 = GetChar("柳梢青");
+		if (GetHP(c2)>10 && GetHP(c)>10)
+		{
+			SetTarget(0, "char", c2);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 100)
+			{
+				Perform(c3, "say", "咳～");
+				Perform(c3, "pause", 5);
+				Perform(c3, "say", "咳～");
+				Perform(c3, "pause", 5);
+				Perform(c3, "say", "咳～");
+				Perform(c3, "pause", 5);
+				Perform(c2, "say", "受伤了吧！柳大姐在等你，快去吧。");
+				trg6 = 3;
+				t = now + 5;
+			}
+		}
+	}
+		if (trg6 == 3)
+	{
+		c = GetChar("王强");
+		c2 = GetChar("柳梢青的幻影");
+		c3 = GetChar("柳梢青");
+		if (now>t)
+		{
+				SetTarget(0, "waypoint", 0);
+				ChangeBehavior(c, "attacktarget",0);
+				Perform(c, "pause", 5);
+				SetTarget(0, "waypoint", 0);
+				ChangeBehavior(c2, "attacktarget",0,3);
+				trg6 = 4;
+				trg10 = 1;
+		}
+	}
+		if (trg6 == 4)
+	{
+		c3 = GetChar("柳梢青");
+		if (c3>0)
+		{
+				trg6 = 5;
+				t = now +30;
+		}
+	}
+			if (trg6 == 5)
+	{
+		c3 = GetAnyChar("柳梢青");
+		c2 = GetAnyChar("柳梢青的幻影");
+		if (now>t)
+		{
+		ChangeBehavior(c, "follow",player);
+		RemoveNPC(c3);
+		RemoveNPC(c2);
+				trg6 = 6;
+		}
+	}
+	if (trg7 == 0)
+	{
+		c2 = GetChar("焰");
+		c = GetChar("王强");
+		if (c>=0 && GetEnemy(c)==c2)
+		{
+			Perform(c2, "use", 35);
+			PlayerPerform( "say", "好强的秒杀能力");
+			trg7 = 1;
+		}
+	}
+	if (trg8 == 0)
+	{
+		c2 = GetChar("夜猫子");
+		c = GetChar("王强");
+		if (c>=0 && GetEnemy(c)==c2)
+		{
+			Perform(c2, "use", 35);
+			PlayerPerform( "say", "好强的秒杀能力");
+			trg8 = 1;
+		}
+	}
+	if (trg9 == 0)
+	{
+		c = GetChar("八归");
+		if (GetHP(c)>=1500 && GetHP(player)<=500)
+		{
+			AddNPC("13=24");
+			AddNPC("13=23");
+			trg9 = 1;
+		}
+	}
+		if (trg9 == 1)
+	{
+		c = GetChar("八归");
+		c2 = GetChar("柳梢青的幻影");
+		if (c2>=0 && c2>=0)
+		{
+		ChangeBehavior(c2,"follow",1);
+			trg9 = 2;
+		}
+	}
+		if (trg9 == 2)
+	{
+		c = GetChar("八归");
+		c2 = GetChar("柳梢青的幻影");
+		c3 = GetChar("柳梢青");
+		if (GetHP(c2)>10 && GetHP(c)>10)
+		{
+			SetTarget(0, "char", c2);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 100)
+			{
+				Perform(c3, "say", "咳～");
+				Perform(c3, "pause", 5);
+				Perform(c3, "say", "咳～");
+				Perform(c3, "pause", 5);
+				Perform(c3, "say", "咳～");
+				Perform(c3, "pause", 5);
+				Perform(c2, "say", "受伤了吧！柳大姐在等你，快去吧。");
+				trg9 = 3;
+				t = now + 5;
+			}
+		}
+	}
+		if (trg9 == 3)
+	{
+		c = GetChar("八归");
+		c2 = GetChar("柳梢青的幻影");
+		c3 = GetChar("柳梢青");
+		if (now>t)
+		{
+				SetTarget(0, "waypoint", 0);
+				ChangeBehavior(c, "attacktarget",0);
+				Perform(c, "pause", 5);
+				SetTarget(0, "waypoint", 0);
+				ChangeBehavior(c2, "attacktarget",0,3);
+				trg9 = 4;
+				trg10 = 3;
+		}
+	}
+			if (trg9 == 4)
+	{
+		c3 = GetChar("柳梢青");
+		if (c3>0)
+		{
+				trg9 = 5;
+				t = now + 30;
+		}
+	}
+			if (trg9 == 5)
+	{
+		c = GetChar("八归");
+		c3 = GetAnyChar("柳梢青");
+		c2 = GetAnyChar("柳梢青的幻影");
+		if (now>t)
+		{
+		ChangeBehavior(c, "follow",player);
+		RemoveNPC(c3);
+		RemoveNPC(c2);
+				trg9 = 6;
+		}
+	}
+			if (trg10 == 1)
+	{
+		c3 = GetChar("柳梢青");
+		if (GetHP(c3)>10)
+		{
+			SetTarget(0, "char", c3);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 50)
+			{
+				PlayerPerform("use", 16);
+				PlayerPerform("use", 16);
+				trg10 = 2;
+			}
+		}
+	}
+			if (trg10 == 2)
+	{
+		c3 = GetChar("柳梢青");
+		if (GetHP(c3)>10)
+		{
+				trg10 = 4;
+		}
+	}
+			if (trg10 == 3)
+	{
+		c3 = GetChar("柳梢青");
+		if (GetHP(c3)>10)
+		{
+			SetTarget(0, "char", c3);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 50)
+			{
+				PlayerPerform("use", 16);
+				PlayerPerform("use", 16);
+				PlayerPerform("use", 16);
+				trg10 = 4;
+			}
+		}
+	}
+		if (trg11 == 0)
+	{
+		c2 = GetChar("八归");
+		if (c2>=0 && GetHP(c2)>10)
+		{
+		trg11 = 1;
+		}
+	}
+	if (trg11 == 1)
+	{
+		c2 = GetChar("八归");
+		if (c2>=0 && GetHP(c2)<=0)
+		{
+				GameOver(1);
+				trg11 = 2;
+		}
+	}
+			if (trg12 == 0)
+	{
+		if (GetHP(player)>10)
+		{
+		trg12 = 1;
+		}
+	}
+	if (trg12 == 1)
+	{
+		if (GetHP(player)<=0)
+		{
+				GameOver(-1);
+				trg12 = 2;
+		}
+	}
+			if (trg13 == 0)
+	{
+		c3 = GetChar("八归");
+		if (GetHP(c3)>10 && GetHP(c3)<1000)
+		{
+				Perform("use", 8);
+				t = now + 15;
+				trg13 = 1;
+		}
+	}
+			if (trg13 == 1)
+	{
+		c3 = GetChar("八归");
+		if (t<now)
+		{
+				Perform(c3, "say", "让你尝尝八归刀的厉害！");
+				trg13 = 0;
+		}
+	}
+	if (trg14 == 0)
+	{
+		if (GetHP(player)>0)
+		{
+		trg14 = 1;
+		}
+	}
+		if (trg14 == 1)
+	{
+		if (GetHP(player)<=0)
+		{
+		GameOver(-1);
+		trg14 = 2;
+		}
+	}
+}

@@ -1,0 +1,160 @@
+// 炽雪城(夜鸦一支舞制作)
+int Rule = 4;
+int RoundTime = 10;
+int PlayerSpawn = 2;
+int PlayerSpawnDir = 250;
+int PlayerWeapon = 7;
+int PlayerWeapon2 = 8;
+int PlayerHP = 2000;
+
+
+int trg0 = 0;
+int trg1 = 0;
+int trg2 = 0;
+int trg3 = 0;
+int trg4 = 0;
+int t;
+int yyyzw = 0;
+
+OnStart()
+{
+	AddNPC("4=1"); 	
+	AddNPC("4=3"); 	
+	AddNPC("4=4"); 		
+}
+
+OnUpdate()
+{
+	int player = GetAnyChar("player");
+	if (player < 0)
+	{
+		return 0;
+	}
+	
+	int c;
+	int c2;
+	int c3;
+	int c4;
+	int c5;
+	int c6;
+	int now = GetGameTime();
+
+	if (yyyzw == 0)
+	{		
+		if (now>2)
+		{
+			PlayerPerform("say", "玩得愉快……");
+			PlayerPerform("pause", 8);
+			PlayerPerform("say", "欢迎交流指导");
+			PlayerPerform("pause", 1);
+			PlayerPerform("say", "  QQ:  939947468");
+			PlayerPerform("say", "交流群:84147975");
+			PlayerPerform("pause", 4);
+			PlayerPerform("say", "·夜鸦一支舞·制作……");
+			yyyzw = 1;
+		}
+	}		
+	if (trg0 == 0)
+	{	
+		c = GetChar("回神");
+		c2 = GetChar("加血");
+		
+		if (GetHP(c2)<500 && GetHP(c)>500)
+		{
+			Perform(c2, "say", "给我回神！！");
+			trg0 = 1;
+			t = now + 5;
+		}		
+	}
+	if (trg0 == 1)
+	{	
+		c = GetChar("回神");
+		c2 = GetChar("加血");
+		if (GetHP(c2)<500 && GetHP(c)>500 && now>t)
+		{
+			Perform(c2, "say", "哈哈，满了");
+			Perform(c2, "use", 1);
+			trg0 = 0;
+		}		
+	}
+	if (trg1 == 0)
+	{	
+		c = GetChar("回神");
+		c2 = GetChar("加血");
+		
+		if (GetHP(c)<500 && GetHP(c2)>500)
+		{
+			Perform(c, "say", "给我加血！！");
+			trg1 = 1;
+			t = now + 5;
+		}		
+	}
+	if (trg1 == 1)
+	{	
+		c = GetChar("回神");
+		c2 = GetChar("加血");
+		if (GetHP(c)<500 && GetHP(c2)>500 && now>t)
+		{
+			Perform(c, "say", "满了哦");
+			Perform(c, "use", 1);
+			trg1 = 0;
+		}		
+	}
+	if (trg2 == 0)
+	{	
+		c = GetChar("回神");
+		c2 = GetChar("加血");
+		if (GetHP(c)<500 && GetHP(c2)<500)
+		{
+			Perform(c2, "say", "我没魔了");
+			Perform(c, "say", "我好累啊");
+			trg2 = 1;
+		}		
+	}
+	if (trg3 == 0)
+	{
+		c = GetChar("拜星月");
+		if (GetHP(c)>0 && GetHP(c)<1500)
+		{
+			Perform(c, "use",8);
+			trg3 = 1;
+		}		
+	}		
+		if (trg3 == 1)
+	{
+		c = GetChar("拜星月");
+		if (GetHP(c)>0)
+		{
+			t = now + 13;
+			trg3 = 2;
+		}		
+	}
+	if (trg3 == 2)
+	{
+		c = GetChar("拜星月");
+		if (now>t)
+		{
+			trg3 = 0;
+		}		
+	}
+			if (trg4 == 0)
+	{	
+		c = GetChar("回神");
+		c2 = GetChar("加血");
+		if (GetHP(c)>10 && GetHP(c2)>10)
+		{
+			trg4 = 1;
+		}		
+	}
+		if (trg4 == 1)
+	{	
+		c = GetChar("回神");
+		c2 = GetChar("加血");
+		if (GetHP(c)<=0 && GetHP(c2)<=0)
+		{
+				PlayerPerform("use", 16);
+				PlayerPerform("use", 16);
+			trg4 = 2;
+		}		
+	}
+}

@@ -1,0 +1,1200 @@
+// 飞鹏堡(夜鸦一支舞制作)
+int Rule = 10;
+int RoundTime = 60;
+int PlayerSpawn = 30;
+int PlayerSpawnDir = 80;
+int PlayerWeapon = 5;
+int PlayerWeapon2 = 55;
+int PlayerHP = 4000;
+
+int trg0 = 0;
+int trg1 = 0;
+int trg2 = 0;
+int trg3 = 14;
+int trg4 = 0;
+int trg5 = 0;
+int trg6 = 0;
+int trg7 = 0;
+int trg8 = 0;
+int trg9 = 0;
+int trg10 = 0;
+int trg11 = 0;
+int trg12 = 0;
+int trg13 = 0;
+int trg14 = 0;
+int trg15 = 0;
+int trg16 = 0;
+int trg17 = 0;
+int trg18 = 0;
+int trg19 = 0;
+int t;
+int t1;
+int yyyzw = 0;
+
+
+OnStart()
+{
+	AddNPC("15=1");
+	AddNPC("15=2");
+	AddNPC("15=3");
+	AddNPC("15=5");
+	AddNPC("15=4");
+
+}
+
+
+OnUpdate()
+{
+	int player = GetChar("player");
+	if (player < 0)
+	{
+		return 0;
+	}
+
+	int c;
+	int c2;
+  int c3;
+  int c4;
+  int c5;
+  int c6;
+	int rander;
+	int now = GetGameTime();
+
+	if (yyyzw == 0)
+	{
+		if (now>2)
+		{
+			PlayerPerform("block", 0);
+			PlayerPerform("crouch", 0);
+			PlayerPerform("say", "玩得愉快……");
+			PlayerPerform("pause", 6);
+			PlayerPerform("say", "欢迎交流指导");
+			PlayerPerform("pause", 1);
+			PlayerPerform("say", "  QQ:  939947468");
+			PlayerPerform("say", "交流群:84147975");
+			PlayerPerform("pause", 4);
+			PlayerPerform("say", "·夜鸦一支舞·制作……");
+			PlayerPerform("crouch", 1);
+			PlayerPerform("block", 1);
+			yyyzw = 1;
+		}
+	}
+	if (trg0 == 0)
+	{
+		c = GetChar("卫兵头目·应长天");
+		if (c>=0 && now>15)
+		{
+			PlayerPerform("block", 0);
+			PlayerPerform("crouch", 0);
+			Perform(c,"say", "没有我的命令不准撤离！");
+			Perform(c, "pause", 2);
+			Perform(c, "say", "你们守卫好进入地牢的各个关卡，不能疏忽。");
+			Perform(c, "pause", 2);
+			Perform(c,"say", "萧老大出去15分钟，这段时间，我们要保护好囚犯！");
+			Perform(c, "pause", 2);
+			Perform(c, "say","各个守卫听好了！");
+			PlayerPerform("pause", 6);
+			PlayerPerform("crouch", 1);
+			PlayerPerform("block", 1);
+			trg0 = 1;
+			t = now + 10;
+		}
+	}
+	if (trg0 == 1)
+	{
+		if (player>0 && t<now)
+		{
+			PlayerPerform( "say", "就拿你这个小头目开刀！");
+			PlayerPerform( "pause", 2);
+			PlayerPerform( "say", "我们要抓紧清理这里！好埋伏他");
+			PlayerPerform( "pause", 2);
+			PlayerPerform("say", "萧安15分钟后回来");
+			trg0 = 2;
+		}
+	}
+	if (trg0 == 2)
+	{
+		c = GetChar("卫兵头目·应长天");
+		if (GetHP(c)>10 && now>150)
+		{
+
+			Perform(c,"say", "已经拖了这么长时间了,我的任务完成了.逃^^^");
+			trg0 = 3;
+			trg3 = 0;
+		}
+	}
+	if (trg0 == 3)
+	{
+		c = GetAnyChar("卫兵头目·应长天");
+		if (c>0)
+		{
+		        RemoveNPC(c);
+			trg0 = 4;
+		}
+	}
+	if (trg1 == 0)
+	{
+		c = GetChar("卫兵头目·应长天");
+		if (c>=0 && GetHP(c)<2000)
+		{
+			PlayerPerform("say", "废话少说，接招。");
+			PlayerPerform( "pause", 7);
+
+
+			Perform(c,"say", "你也想这样？哈哈哈……");
+			Perform(c, "pause", 1);
+			Perform(c,"say", "他就是擅自闯入，而被囚禁到现在！");
+			Perform(c, "pause", 1);
+			Perform(c,"say", "你看到那个扫地僧吧");
+			Perform(c, "pause", 1);
+			Perform(c, "say", "你是什么人");
+			Perform(c, "faceto", player);
+			trg1 = 1;
+		}
+	}
+	if (trg1 == 1)
+	{
+		c4 = GetAnyChar("守卫`孤雁儿");
+		c3 = GetAnyChar("守卫`采桑子");
+		c2 = GetAnyChar("守卫`满庭芳");
+		c = GetChar("卫兵头目·应长天");
+		if (c>0 && GetHP(c)<=800 && GetHP(c)>=10)
+		{
+		        RemoveNPC(c2);
+		        RemoveNPC(c3);
+		        RemoveNPC(c4);
+		Perform(c2,"say", "什么？快追！");
+			Perform(c2, "pause", 5);
+		Perform(c, "say", "不好啦,萧老大通缉的小子逃到堡外拉！");
+			Perform(c, "pause", 2);
+		Perform(c, "say", "好好，我说！");
+			Perform(c, "pause", 2);
+		PlayerPerform("say", "快和守卫说我逃走了！不然杀了你！");
+			trg1 = 2;
+		}
+	}
+		if (trg1 == 2)
+	{
+		c6 = GetAnyChar("飞鹏堡死囚·龙吟水");
+		c = GetChar("卫兵头目·应长天");
+		if (GetHP(c)<=0 && c6<0)
+		{
+			trg1 = 3;
+			trg3 = 0;
+			trg0 = 3;
+		}
+	}
+	if (trg2 == 0)
+	{
+		c2 = GetChar("扫地僧");
+		if (c2>0)
+		{
+			SetTarget(0, "char", c2);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 50)
+			{
+			ChangeBehavior(c2, "idle");
+			Perform(c2, "pause", 2);
+			Perform(c2,"say", "萧安和两个随从可以发动神功，望侠士小心！");
+			Perform(c2, "pause", 2);
+			Perform(c2,"say", "我只是扫地僧！请别打我！");
+			trg2 = 1;
+			}
+		}
+	}
+	if (trg2 == 1)
+	{
+		c = GetChar("扫地僧");
+		if (GetHP(c)>0 && GetHP(c)<=4800)
+		{
+			ChangeBehavior(c, "kill",player);
+			Perform(c,"say", "我就让你看看什么叫山外有山！");
+			Perform(c, "pause", 2);
+			Perform(c,"say", "告诉你不许打我！！你不听。");
+			Perform(c, "pause", 2);
+			Perform(c,"say", "你就欺负手无缚鸡之力的人吗？");
+			Perform(c, "pause", 2);
+			Perform(c,"say", "你还打我？");
+			Perform(c, "pause", 2);
+			Perform(c, "say","我被萧安虐待的还不够惨吗？");
+			trg2 = 2;
+		}
+	}
+	if (trg2 == 2)
+	{
+		c = GetChar("扫地僧");
+		if (c>=0)
+		{
+			Perform(c,"use",19);
+			Perform(c,"use",33);
+			Perform(c,"use",8);
+			Perform(c,"use",3);
+			Perform(c,"use",4);
+			Perform(c,"use",34);
+			Perform(c,"use",23);
+			Perform(c,"use",40);
+			trg2 = 3;
+		}
+	}
+	if (trg3 == 0)
+	{
+		c6 = GetAnyChar("飞鹏堡死囚·龙吟水");
+		if (c6<0)
+		{
+		AddNPC("15=11");
+		AddNPC("15=13");
+		AddNPC("15=12");
+		AddNPC("15=15");
+			trg3 = 1;
+		}
+	}
+	if (trg3 == 1)
+	{
+		c2 = GetAnyChar("护法`江城子");
+		c3 = GetAnyChar("护法`渡江云");
+		c4 = GetAnyChar("护法`临江仙");
+		if (c2>0)
+		{
+			PlayerPerform("say", "呵呵，睡的一个比一个熟");
+			PlayerPerform( "pause", 6);
+			Perform(c2, "say","Z~Z~Z~");
+			Perform(c2, "pause", 4);
+			Perform(c3, "say","Z~Z~");
+			Perform(c3, "pause", 2);
+			Perform(c4, "say","Z~");
+			trg3 = 2;
+		}
+	}
+	if (trg3 == 2)
+	{
+		c6 = GetAnyChar("飞鹏堡死囚·龙吟水");
+		c2 = GetAnyChar("护法`江城子");
+		c3 = GetAnyChar("护法`渡江云");
+		c4 = GetAnyChar("护法`临江仙");
+		if (c2>0 && GetHP(c2)<=1600)
+		{
+			ChangeBehavior(c2, "kill",player);
+			ChangeBehavior(c3, "kill",player);
+			ChangeBehavior(c4, "kill",player);
+			Perform(c2, "say","是谁?");
+			trg3 = 3;
+			t = now + 1;
+		}
+		if (c4>0 && GetHP(c4)<=1600)
+		{
+			ChangeBehavior(c2, "kill",player);
+			ChangeBehavior(c3, "kill",player);
+			ChangeBehavior(c4, "kill",player);
+			Perform(c4, "say","是谁?");
+			trg3 = 3;
+			t = now + 1;
+		}
+		if (c3>0 && GetHP(c3)<=600)
+		{
+			ChangeBehavior(c2, "kill",player);
+			ChangeBehavior(c3, "kill",player);
+			ChangeBehavior(c4, "kill",player);
+			Perform(c3, "say","是谁?");
+			trg3 = 3;
+			t = now + 1;
+		}
+		if (c6>0)
+		{
+			SetTarget(0, "char", c6);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 250)
+			{
+			PlayerPerform("say", "你把这件隐身衣穿上，逃走吧。");
+			PlayerPerform("pause", 4);
+			PlayerPerform("say", "什么，难道非得与萧安作战吗？这下麻烦了。");
+			PlayerPerform("pause", 3);
+			PlayerPerform("say", "你知道有一个女孩子被关在哪里吗？");
+			PlayerPerform("pause", 1);
+			PlayerPerform("say", "我帮你解开绳子");
+
+			Perform(c6, "say","多谢！");
+			Perform(c6, "pause", 7);
+			Perform(c6, "say","不清楚，但听说萧安这次出去是专门接回一个女贼。");
+			Perform(c6, "pause", 2);
+			Perform(c6, "say","别惊动他们");
+			Perform(c6, "pause", 10);
+			Perform(c3, "pause", 12);
+			Perform(c4, "pause", 12);
+			Perform(c2, "pause", 12);
+			trg3 = 3;
+			t = now + 1;
+			}
+		}
+	}
+	if (trg3 == 3)
+	{
+		c6 = GetAnyChar("飞鹏堡死囚·龙吟水");
+		if (c6>0 && t<now)
+		{
+			SetTarget(0, "waypoint", 80);
+			ChangeBehavior(c6, "attacktarget", 0);
+			Perform(c6, "use",36);
+			trg3 = 4;
+			t = now + 5;
+		}
+	}
+	if (trg3 == 4)
+	{
+		c2 = GetAnyChar("护法`江城子");
+		c3 = GetAnyChar("护法`渡江云");
+		c4 = GetAnyChar("护法`临江仙");
+		if (t<now)
+		{
+			ChangeBehavior(c2, "follow",player);
+			ChangeBehavior(c3, "follow",player);
+			ChangeBehavior(c4, "follow",player);
+			Perform(c4, "say","被那个小子……劫走了");
+			Perform(c4, "pause", 5);
+			Perform(c2, "say","啊！死囚不见了。");
+			Perform(c2, "pause", 2);
+			Perform(c3, "say","恩……");
+			trg3 = 5;
+		}
+	}
+	if (trg3 == 5)
+	{
+		c2 = GetAnyChar("护法`江城子");
+		c3 = GetAnyChar("护法`渡江云");
+		c4 = GetAnyChar("护法`临江仙");
+		c6 = GetAnyChar("飞鹏堡死囚·龙吟水");
+		if (GetHP(c2)<=0 && GetHP(c3)<=0 && GetHP(c4)<=0 && GetHP(c5)<=0)
+		{
+	AddNPC("15=21");
+	AddNPC("15=23");
+	AddNPC("15=22");
+		        RemoveNPC(c2);
+		        RemoveNPC(c3);
+		        RemoveNPC(c5);
+		        RemoveNPC(c4);
+		        RemoveNPC(c6);
+			trg3 = 6;
+		}
+	}
+	if (trg3 == 6)
+	{
+		c5 = GetAnyChar("长老·夜半乐");
+		c4 = GetAnyChar("长老·花夜合");
+		c2 = GetAnyChar("长老·夜游宫");
+		if (c2>0)
+		{
+			Perform(c2, "say","就是他！大家上");
+			ChangeBehavior(c2, "follow",player);
+			ChangeBehavior(c5, "follow",player);
+			ChangeBehavior(c4, "follow",player);
+			trg3 = 7;
+		}
+	}
+	if (trg3 == 7)
+	{
+		c5 = GetAnyChar("长老·夜半乐");
+		c4 = GetAnyChar("长老·花夜合");
+		c = GetAnyChar("长老·夜游宫");
+		if (GetHP(c)<=0 && GetHP(c4)<=0 && GetHP(c5)<=0)
+		{
+			AddNPC("15=31");
+			AddNPC("15=32");
+		        RemoveNPC(c4);
+		        RemoveNPC(c);
+		        RemoveNPC(c5);
+			trg3 = 8;
+			t = now + 10;
+		}
+	}
+	if (trg3 == 8)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		if (now>t)
+		{
+			ChangeBehavior(c3, "follow",player);
+			ChangeBehavior(c2, "follow",player);
+			Perform(c3, "say","坏我父亲好事的人，姐姐我们一起杀了他！");
+			trg3 = 9;
+		}
+	}
+	if (trg3 == 9)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		if (GetHP(c2)<=2000)
+		{
+		Perform(c2, "say","保存实力，我去找父亲来发动神功！");
+		trg3 = 10;
+		t = now + 10;
+		}
+		if (GetHP(c3)<=2000)
+		{
+		Perform(c3, "say","保存实力，我去找父亲来发动神功！");
+		trg3 = 10;
+		t = now + 10;
+		}
+	}
+	if (trg3 == 10)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		if (now>t)
+		{
+		RemoveNPC(c2);
+			trg3 = 11;
+		}
+		if (now>t)
+		{
+		RemoveNPC(c3);
+			trg3 = 11;
+		}
+	}
+	if (trg3 == 11)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		if (GetHP(c2)<=0 && GetHP(c3)<=1000)
+		{
+		Perform(c3, "say","我也撤！");
+			trg3 = 12;
+		t = now + 10 ;
+		}
+		if (GetHP(c2)<=1000 && GetHP(c3)<=0)
+		{
+		Perform(c2, "say","我也撤！");
+			trg3 = 12;
+			t = now + 10 ;
+		}
+	}
+	if (trg3 == 12)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		if (now>t)
+		{
+		RemoveNPC(c3);
+			trg3 = 13;
+		}
+		if (now>t)
+		{
+		RemoveNPC(c2);
+			trg3 = 13;
+		}
+	}
+	if (trg3 == 13)
+	{
+		if (GetHP(player)>=0)
+		{
+		AddNPC("15=42");
+			trg3 = 14;
+		}
+	}
+	if (trg4 == 0)
+	{
+		c3 = GetChar("守卫`满庭芳");
+		if (c3>0)
+		{
+			SetTarget(0, "char", c3);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 50)
+			{
+			ChangeBehavior(c3, "kill",player);
+			Perform(c3, "say","我发现你了！大家穿好保护衣！");
+			trg4 = 1;
+			}
+		}
+	}
+	if (trg4 == 1)
+	{
+		c2 = GetAnyChar("护法`江城子");
+		c3 = GetAnyChar("护法`渡江云");
+		c4 = GetAnyChar("护法`临江仙");
+
+		if (c2>0)
+		{
+			Perform(c3, "use",3);
+			Perform(c2, "use",3);
+			Perform(c4, "use",3);
+			Perform(c5, "use",3);
+			trg4 = 2;
+		}
+	}
+	if (trg4 == 2)
+	{
+		c5 = GetAnyChar("长老·夜半乐");
+		c4 = GetAnyChar("长老·花夜合");
+		c = GetAnyChar("长老·夜游宫");
+		if (c>0)
+		{
+			Perform(c5, "use",3);
+			Perform(c, "use",3);
+			Perform(c4, "use",3);
+			trg4 = 3;
+		}
+	}
+	if (trg4 == 3)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		if (c2>0)
+		{
+			Perform(c3, "use",3);
+			Perform(c2, "use",3);
+			trg4 = 4;
+		}
+	}
+	if (trg5 == 0)
+	{
+		c3 = GetChar("守卫`采桑子");
+		if (c3>0)
+		{
+			SetTarget(0, "char", c3);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 50)
+			{
+			Perform(c3, "say","我发现你了！大家带好拳套！");
+			ChangeBehavior(c3, "kill",player);
+			trg5 = 1;
+			}
+		}
+	}
+	if (trg5 == 1)
+	{
+		c2 = GetAnyChar("护法`江城子");
+		c3 = GetAnyChar("护法`渡江云");
+		c4 = GetAnyChar("护法`临江仙");
+		if (c2>0)
+		{
+			Perform(c3, "use",4);
+			Perform(c2, "use",4);
+			Perform(c4, "use",4);
+			Perform(c5, "use",4);
+			trg5 = 2;
+		}
+	}
+	if (trg5 == 2)
+	{
+		c5 = GetAnyChar("长老·夜半乐");
+		c4 = GetAnyChar("长老·花夜合");
+		c2 = GetAnyChar("长老·夜游宫");
+		if (c2>0)
+		{
+			Perform(c5, "use",4);
+			Perform(c2, "use",4);
+			Perform(c4, "use",4);
+			trg5 = 3;
+		}
+	}
+	if (trg5 == 3)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		if (c2>0)
+		{
+			Perform(c3, "use",4);
+			Perform(c2, "use",4);
+			trg5 = 4;
+		}
+	}
+	if (trg6 == 0)
+	{
+		c3 = GetChar("守卫`孤雁儿");
+		if (c3>0)
+		{
+			SetTarget(0, "char", c3);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 50)
+			{
+			ChangeBehavior(c3, "kill",player);
+			Perform(c3, "say","我发现你了！大家畜气！");
+			trg6 = 1;
+			}
+		}
+	}
+	if (trg6 == 1)
+	{
+		c2 = GetAnyChar("护法`江城子");
+		c3 = GetAnyChar("护法`渡江云");
+		c4 = GetAnyChar("护法`临江仙");
+		if (c2>0)
+		{
+			Perform(c3, "use",8);
+			Perform(c2, "use",8);
+			Perform(c4, "use",8);
+			Perform(c5, "use",8);
+			trg6 = 2;
+		}
+	}
+	if (trg6 == 2)
+	{
+		c5 = GetAnyChar("长老·夜半乐");
+		c4 = GetAnyChar("长老·花夜合");
+		c2 = GetAnyChar("长老·夜游宫");
+		if (c2>0)
+		{
+			Perform(c5, "use",8);
+			Perform(c2, "use",8);
+			Perform(c4, "use",8);
+			trg6 = 3;
+		}
+	}
+	if (trg6 == 3)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		if (c2>0)
+		{
+			Perform(c3, "use",8);
+			Perform(c2, "use",8);
+			trg6 = 4;
+		}
+	}
+	if (trg7 == 0)
+	{
+		c = GetChar("萧安");
+		if (now>900 && c<0 && now<915)
+		{
+			AddNPC("15=51");
+			trg7 = 1;
+		}
+	}
+	if (trg7 == 1)
+	{
+		c = GetChar("萧安");
+		c2 = GetChar("扫地僧");
+		if (c>0)
+		{
+		 RemoveNPC(c2);
+			trg7 = 2;
+		}
+	}
+	if (trg7 == 2)
+	{
+		c4 = GetAnyChar("守卫`孤雁儿");
+		c3 = GetAnyChar("守卫`采桑子");
+		c2 = GetAnyChar("守卫`满庭芳");
+		if (GetHP(c4)>=10 &&  GetHP(c2)>=10 &&  GetHP(c3)>=10)
+		{
+			ChangeBehavior(c2, "follow",player);
+			ChangeBehavior(c4, "follow",player);
+			ChangeBehavior(c3, "follow",player);
+			trg7 = 3;
+		}
+	}
+	if (trg8 == 0)
+	{
+		c = GetChar("萧安");
+		c2 = GetChar("飞鹏堡死囚·龙吟水");
+		if (GetHP(c)>=10 &&  GetHP(c2)>=10)
+		{
+			ChangeBehavior(c, "follow",player);
+			PlayerPerform("use",11);
+			PlayerPerform("use",12);
+			PlayerPerform("use",13);
+			PlayerPerform("use",18);
+			PlayerPerform("use",10);
+			Perform(c,"use",19);
+			Perform(c,"use",33);
+			Perform(c,"use",8);
+			Perform(c,"use",3);
+			Perform(c,"use",4);
+			Perform(c,"use",34);
+			Perform(c,"use",23);
+			Perform(c,"use",40);
+			Perform(c, "say","很不幸你基本上就可以宣布你任务失败了！");
+			Perform(c, "pause", 2);
+			Perform(c, "say","你们吧死囚保护的很好嘛！");
+			trg8 = 1;
+		}
+	}
+	if (trg8 == 1)
+	{
+		c2 = GetChar("萧安");
+		if (GetHP(c2)>=10)
+		{
+			SetTarget(0, "char", c2);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) > 1000)
+			{
+			PlayerPerform("use",14);
+			}
+			trg8 = 2;
+		}
+	}
+	if (trg10 == 0)
+	{
+		c = GetChar("萧安");
+		c2 = GetChar("刺客`青玉案");
+		if (GetHP(c)>=10 &&  GetHP(c2)>=10)
+		{
+			Perform(c2,"use",35);
+			ChangeBehavior(c, "kill",player);
+			Perform(c,"use",18);
+			Perform(c,"use",10);
+			Perform(c,"use",11);
+			Perform(c,"use",12);
+			Perform(c, "say","啊啊啊……");
+			Perform(c, "pause", 2);
+			Perform(c2, "say","自爆……");
+			trg10 = 1;
+
+		}
+	}
+	if (trg11 == 0)
+	{
+		c = GetAnyChar("卫兵头目·应长天");
+		if (now>190)
+		{
+			RemoveNPC(c);
+			trg11 = 1;
+		}
+	}
+	if (trg12 == 0)
+	{
+		c2 = GetChar("萧安");
+		if (GetHP(c2)>=10)
+		{
+			SetTarget(0, "char", c2);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) > 3000)
+			{
+			PlayerPerform("use",10);
+			}
+			trg12 = 1;
+			t = now + 20;
+		}
+	}
+	if (trg12 == 1)
+	{
+		c2 = GetChar("萧安");
+		if (GetHP(c2)>=10 && now>t)
+		{
+			SetTarget(0, "char", c2);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) > 3000)
+			{
+			PlayerPerform("use",11);
+			}
+			trg12 = 2;
+		}
+	}
+	if (trg13 == 0)
+	{
+		c2 = GetChar("萧安");
+		if (GetHP(c2)>=10 && GetHP(c2)<=6000)
+		{
+
+			PlayerPerform("use",10);
+			trg13 = 1;
+		}
+	}
+	if (trg13 == 1)
+	{
+		c2 = GetChar("萧安");
+		if (GetHP(c2)>=10 && GetHP(c2)<=5500)
+		{
+
+			PlayerPerform("use",11);
+			trg13 = 2;
+		}
+	}
+	if (trg13 == 2)
+	{
+		c2 = GetChar("萧安");
+		if (GetHP(c2)>=10 && GetHP(c2)<=4500)
+		{
+
+			Perform(c2,"use",4);
+			trg13 = 3;
+		}
+	}
+	if (trg13 == 3)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		c = GetChar("萧安");
+		if (GetHP(c)>=10 && GetHP(c)<=4000)
+		{
+
+		RemoveNPC(c3);
+		RemoveNPC(c2);
+			Perform(c2,"use",3);
+			trg13 = 4;
+		}
+	}
+	if (trg13 == 4)
+	{
+		c2 = GetChar("萧安");
+		if (GetHP(c2)>=10 && GetHP(c2)<=3000)
+		{
+
+			Perform(c2,"use",8);
+			AddNPC("15=32-");
+			AddNPC("15=31-");
+			trg13 = 5;
+			trg9 = 1;
+		}
+	}
+	if (trg9 == 1)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		c = GetChar("萧安");
+		if (GetHP(c)>0)
+		{
+			ChangeBehavior(c, "idle");
+
+			Perform(c3,"say","好");
+			Perform(c3,"pause",6);
+			Perform(c2,"say","好");
+			Perform(c2,"pause",5);
+			Perform(c,"say","我来发动神功！");
+			Perform(c,"pause",2);
+			Perform(c,"say","女儿们，快快帮我抵挡1分钟！");
+			trg9 = 2;
+			trg14 = 1;
+			trg15 = 1;
+			t1 = now + 60;
+		}
+	}
+	if (trg14 == 1)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		c = GetChar("萧安");
+		if (GetHP(c3)>=1500 && GetHP(c2)>=1500 && now>t1)
+		{
+			Perform(c,"say","1……！");
+			Perform(c,"pause",1);
+			Perform(c,"say","2……！");
+			Perform(c,"pause",1);
+			Perform(c,"say","3……！");
+			Perform(c,"pause",1);
+			Perform(c,"say","4……！");
+			Perform(c,"pause",1);
+			Perform(c,"say","5……");
+			Perform(c,"pause",1);
+			Perform(c,"say","哈哈！你死定了！");
+			trg14 = 2;
+			t = now + 12;
+		}
+	}
+	if (trg14 == 2)
+	{
+		c2 = GetChar("萧安");
+		if (now>t)
+		{
+
+			PlayerPerform("use",35);
+			trg14 = 3;
+		}
+	}
+	if (trg15 == 1)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		c = GetChar("萧安");
+		if (GetHP(c3)>=1 && GetHP(c3)<=1500 && now<t1)
+		{
+			Perform(c3,"say","父亲，我支持不住了！");
+			trg15 = 2;
+			t = now + 2;
+		}
+		if (GetHP(c2)>=1 && GetHP(c2)<=1500 && now<t1)
+		{
+			Perform(c2,"say","父亲，我支持不住了！");
+			trg15 = 2;
+			t = now + 2;
+		}
+	}
+	if (trg15 == 2)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		c = GetChar("萧安");
+		if (now>t)
+		{
+			ChangeBehavior(c, "wait");
+				RemoveNPC(c3);
+				RemoveNPC(c2);
+				trg15 = 3;
+		}
+	}
+		if (trg15 == 3)
+	{
+		c = GetChar("萧安");
+		if (GetHP(c)<=2000)
+		{
+		Perform(c,"use",33);
+		Perform(c,"use",8);
+		trg15 = 4;
+		}
+	}
+		if (trg15 == 4)
+	{
+		c = GetChar("萧安");
+		if (GetHP(c)<=1000)
+		{
+		AddNPC("15=51-");
+		trg15 = 5;
+		}
+	}
+		if (trg15 == 5)
+	{
+		c2 = GetChar("萧安");
+		c = GetChar("花犯");
+		if (GetHP(c)<=10000 && GetHP(c)>=10)
+		{
+			RemoveNPC(c2);
+			trg15 = 6;
+			trg19 = 1;
+		}
+	}
+	if (trg16 == 0)
+	{
+		c2 = GetChar("刺客`青玉案");
+		if (now<900 && c2>0)
+		{
+			SetTarget(0, "char", c2);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 150)
+			{
+			Perform(c2,"say","我是来刺杀萧安的，就在此等候即可！");
+			trg16 = 1;
+			t = now + 10;
+			}
+		}
+	}
+	if (trg16 == 1)
+	{
+		if (t<now)
+		{
+		AddNPC("15=43");
+			trg16 = 2;
+		}
+	}
+	if (trg16 == 2)
+	{
+		c2 = GetChar("盗珂");
+		if (c2>0)
+		{
+			Perform(c2,"say","让我盗王笑纳笑纳！");
+			Perform(c2, "pause", 1);
+			Perform(c2,"say","看看有没有什么宝物！");
+			Perform(c2, "pause", 1);
+			Perform(c2,"say","城中竟空无一人？");
+			trg16 = 3;
+		}
+	}
+	if (trg16 == 3)
+	{
+		c2 = GetChar("盗珂");
+		if (c2>0)
+		{
+			SetTarget(0, "char", c2);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 150)
+			{
+			Perform(c2,"say","被你识破了……！");
+			Perform(c2, "pause", 2);
+			Perform(c2,"say","啊啊啊，我路过迷路了……");
+
+			PlayerPerform("say","呵呵？大名鼎鼎的盗珂，有幸到飞鹏堡来？");
+			PlayerPerform( "pause", 2);
+			trg16 = 4;
+			}
+		}
+	}
+	if (trg16 == 4)
+	{
+		c2 = GetChar("盗珂");
+		if (GetHP(c2)<4800)
+		{
+			PlayerPerform("use", 16);
+			PlayerPerform("use", 16);
+			Perform(c2,"say","我还以为可以避免这场打斗！");
+			trg16 = 5;
+		}
+	}
+	if (trg16 == 5)
+	{
+		c2 = GetChar("盗珂");
+		if (GetHP(c2)<1000 && GetHP(c2)>10)
+		{
+			Perform(c2,"say","好小子！你是個武學之才……");
+			PlayerPerform("use", 15);
+			trg16 = 6;
+			t = now + 10;
+		}
+	}
+	if (trg16 == 6)
+	{
+		c2 = GetChar("盗珂");
+		if (t<now)
+		{
+		RemoveNPC(c2);
+			trg16 = 7;
+			t = now + 10;
+		}
+	}
+		if (trg16 == 7)
+	{
+		if (t<now)
+		{
+			AddNPC("15=51");
+			trg16 = 8;
+			trg7 = 1;
+		}
+	}
+	if (trg16 == 8)
+	{
+		c3 = GetAnyChar("萧凤");
+		c2 = GetAnyChar("萧舞");
+		c = GetChar("萧安");
+		if (c>0 && c2>0 && c3>0)
+		{
+			PlayerPerform("use", 8);
+				trg16 = 9;
+		}
+	}
+	if (trg16 == 9)
+	{
+
+		c = GetChar("花犯");
+		if (c>0)
+		{
+			PlayerPerform("use", 40);
+				trg16 = 10;
+		}
+	}
+	if (trg17 == 0)
+	{
+		c2 = GetChar("盗珂");
+		if (now>880)
+		{
+			Perform(c2,"say","呀呀，萧安回来了！我要走了！");
+			trg17 = 1;
+			t = now + 10;
+		}
+	}
+	if (trg17 == 1)
+	{
+		c2 = GetChar("盗珂");
+		if (t<now)
+		{
+		RemoveNPC(c2);
+			trg17 = 2;
+		}
+	}
+	if (trg18 == 0)
+	{
+		c2 = GetChar("盗珂");
+		if (GetHP(c2)<4500 && GetHP(c2)>40 )
+		{
+			SetTarget(0, "char", c2);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) > 500)
+			{
+			Perform(c2,"say","逃走了？！没劲！");
+			Perform(c2, "use", 1);
+			trg18 = 1;
+			t = now + 3;
+			}
+		}
+	}
+	if (trg18 == 1)
+	{
+		c2 = GetChar("盗珂");
+		if (t<now)
+		{
+			ChangeBehavior(c2, "idle");
+			trg18 = 2;
+		}
+	}
+	if (trg18 == 2)
+	{
+		c2 = GetChar("盗珂");
+		if (GetHP(c2)<4500)
+		{
+			SetTarget(0, "char", c2);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 200)
+			{
+			ChangeBehavior(c2, "wait");
+			trg18 = 3;
+			}
+		}
+	}
+	if (trg18 == 3)
+	{
+		c2 = GetChar("盗珂");
+		if (GetHP(c2)<3000)
+		{
+			Perform(c2,"say","又来了？！");
+			trg18 = 0;
+		}
+	}
+		if (trg19 == 1)
+	{
+		c = GetChar("花犯");
+		SetTarget(0, "char", c);
+		SetTarget(1, "char", player);
+		if (c>=0 && GetEnemy(c)==player && Distance(0, 1)<150)
+		{
+			PlayerPerform("use", 15);
+
+			ChangeBehavior(c, "follow",player);
+			Perform(c, "pause", 6);
+			Perform(c, "say", "来吧,一对一你也赢不了我！");
+			Perform(c, "pause", 2);
+			Perform(c, "say", "不错,算你小子有点见识!!");
+			Perform(c, "pause", 4);
+			Perform(c, "say", "我其实是七煞之一........");
+			Perform(c, "pause", 2);
+			Perform(c, "say", "那只是掩人耳目的名字罢了,！");
+			Perform(c, "pause", 4);
+			Perform(c, "say", "你可知我是谁?");
+			Perform(c, "pause", 4);
+			Perform(c, "say", "你小子能把我的飞蓬堡弄得如此颓景,不错啊!");
+			Perform(c, "faceto", player);
+
+			PlayerPerform("block", 0);
+			PlayerPerform("say", "小心为上!!");
+			PlayerPerform("pause", 2);
+			PlayerPerform("say", "听高老大特别提及,此人匕首奇绝,尤其反手一刺,三秒定夺性命!!");
+			PlayerPerform("pause", 4);
+			PlayerPerform("say", "（难道是---花犯??）");
+			PlayerPerform("pause", 6);
+			PlayerPerform("say", "飞蓬堡堡主--萧安??");
+			PlayerPerform("pause", 4);
+			PlayerPerform("say", "呵呵");
+			PlayerPerform("pause", 2);
+			PlayerPerform("block", 1);
+
+			trg19 = 2;
+		}
+	}
+		if (trg19 == 2)
+	{
+		c = GetChar("花犯");
+		if (GetHP(c)<GetHP(player))
+		{
+			ChangeBehavior(c, "follow",player);
+			Perform(c, "use", 8);
+
+			trg19 = 3;
+			t = now + 30;
+		}
+	}
+		if (trg19 == 3)
+	{
+		c = GetChar("花犯");
+		if (t<now)
+		{
+			ChangeBehavior(c, "follow",player);
+			Perform(c, "use", 8);
+			trg19 = 2;
+			t = now + 30;
+		}
+	}
+}

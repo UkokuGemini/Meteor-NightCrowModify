@@ -1,0 +1,415 @@
+// 一线天(夜鸦一支舞制作)
+int Rule = 5;
+int RoundTime = 15;
+int PlayerSpawn = 53;
+int PlayerSpawnDir = 0;
+int PlayerWeapon = 5;
+int PlayerWeapon2 = 7;
+int PlayerHP = 3000;
+
+int trg0 = 0;
+int trg1 = 0;
+int trg2 = 0;
+int trg3 = 0;
+int trg4 = 0;
+int trg5 = 0;
+int trg6 = 0;
+int trg7 = 0;
+int trg8 = 0;
+int trg9 = 0;
+int trg10 = 0;
+int t;
+int yyyzw = 0;
+
+OnStart()
+{
+	AddNPC("3=1");
+	AddNPC("3=2");
+	AddNPC("3=3");
+	AddNPC("3=4");
+	AddNPC("3=5");		
+}
+
+OnUpdate()
+{
+	int player = GetAnyChar("player");
+	if (player < 0)
+	{
+		return 0;
+	}
+		
+	int c;
+	int c2;
+	int c3;
+	int c4;
+	int c5;
+	int c6;
+	int flag;
+	int now = GetGameTime();
+
+	if (yyyzw == 0)
+	{		
+		if (now>2)
+		{
+			PlayerPerform("say", "玩得愉快……");
+			PlayerPerform("pause", 8);
+			PlayerPerform("say", "欢迎交流指导");
+			PlayerPerform("pause", 1);
+			PlayerPerform("say", "  QQ:  939947468");
+			PlayerPerform("say", "交流群:84147975");
+			PlayerPerform("pause", 4);
+			PlayerPerform("say", "·夜鸦一支舞·制作……");
+			yyyzw = 1;
+		}
+	}
+	if (trg0 == 0)
+	{
+		c2 = GetChar("镖师·天门遥");
+		c3 = GetChar("镖师·荆永溪");
+		c = GetChar("·夜猫子·");
+		if (c >= 0 && GetHP(c)<=1000)
+		{
+			PlayerPerform("block", 0);
+			PlayerPerform("crouch", 0);
+			Perform(c2,"follow", player);
+			Perform(c3,"follow", player);			
+			ChangeBehavior(c, "follow", "player");
+			Perform(c, "say", "阁下，愿意帮帮我吗？");
+			Perform(c3,"pause", 8);
+			Perform(c2,"pause", 8);
+			SetTarget(0, "waypoint", 53);
+			ChangeBehavior(c, "attacktarget", 0);
+			PlayerPerform("pause", 6);
+			PlayerPerform("crouch", 1);
+			PlayerPerform("block", 1);
+			trg0 = 1;	
+		}	
+	}
+	if (trg0 == 1)
+	{
+		c4 = GetAnyChar("马夫·惜分飞");
+		c2 = GetAnyChar("镖师·天门遥");
+		c3 = GetAnyChar("镖师·荆永溪");
+		c = GetAnyChar("·夜猫子·");
+		if (c>=0 && GetHP(c4)<=900 && player>=0 && GetHP(player)>0)
+		{	
+				RemoveNPC(c);						
+				Perform(c,"say", "那我们分头来找镖车（镖物）！");
+				Perform(c,"say", "官府押送的民脂民膏，倒不如拿来济济灾民！");
+				AddNPC("3=11");
+				AddNPC("3=12");
+				trg0 = 2;	
+		}	
+	}
+	if (trg1 == 0)
+	{
+		c4 = GetChar("铁胡子");
+		if ( GetHP(c4)<=500 && GetHP(c4)>0 && player>=0 && GetHP(player)>0)
+		{
+			AddNPC("3=13");
+			Perform(c4,"say", "寨主…………！");
+			trg1 = 1;
+		}
+	}
+	if (trg1 == 1)
+	{
+		c5 = GetChar("土匪寨主");
+		if (c5>0 && GetHP(c5)<=GetMaxHP(c5)/2 && GetHP(c5)>0 && player>=0 && GetHP(player)>0)
+		{
+				Perform(c5, "use",4);
+				Perform(c5, "say", "气死我了！！");				
+				trg1 = 2;
+		}
+	}
+	if (trg2 == 0)
+	{
+		c4 = GetChar("镖师·关河令");
+		if ( GetHP(c4)<=500 && GetHP(c4)>0 && player>=0 && GetHP(player)>0)
+		{
+			AddNPC("3=14");
+			Perform(c4,"say", "来人啊…………！");
+			trg2 = 1;
+		}
+	}
+	if (trg2 == 1)
+	{
+		c5 = GetChar("镖师·清商怨");
+		if (c5>0 && GetHP(c5)<=GetMaxHP(c5)/2 && GetHP(c5)>0 && player>=0 && GetHP(player)>0)
+		{
+				Perform(c5, "use",4);
+				Perform(c5, "say", "气死我了！！");				
+				trg2 = 2;
+		}
+	}
+	if (trg3 == 0)
+	{
+		c4 = GetChar("镖师·清商怨");
+		if ( GetHP(c4)<=500 && GetHP(c4)>0 && player>=0 && GetHP(player)>0)
+		{
+			AddNPC("3=21");
+			AddNPC("3=22");
+			Perform(c4,"say", "大人………………！");
+			PlayerPerform("use",2);
+			PlayerPerform("use",16);
+			PlayerPerform("use",16);
+			PlayerPerform("use",16);
+			trg3 = 1;
+		}
+	}
+	if (trg4 == 0)
+	{
+		c6 = GetAnyChar("镖师·关河令");
+		c5 = GetAnyChar("镖师·清商怨");
+		c = GetAnyChar("马夫·惜分飞");
+		c2 = GetAnyChar("镖师·天门遥");
+		c3 = GetAnyChar("镖师·荆永溪");	
+		c4 = GetChar("镖头·王卫");
+		if ( GetHP(c4)<=3000 && GetHP(c4)>0 && player>=0 && GetHP(player)>0)
+		{
+				ChangeBehavior(c4, "idle");
+				Perform(c4, "say", "来啊，来追我呀！");		
+				SetTarget(0, "waypoint", 20);
+				ChangeBehavior(c4, "attacktarget", 0);
+				Perform(c4, "use",41);	
+				Perform(c4, "use",5);	
+				RemoveNPC(c6);
+				RemoveNPC(c5);
+				RemoveNPC(c3);
+				RemoveNPC(c2);
+				RemoveNPC(c);					
+				trg4 = 1;
+		}		
+	}
+		if (trg4 == 1)
+	{
+	
+		c2 = GetChar("镖头·王卫");
+		c = GetChar("焰");
+		c3 = GetChar("夜猫子");
+		if (GetHP(c2)>10 && GetHP(c)>10)
+		{
+			SetTarget(0, "char", c);			
+			SetTarget(1, "char", c2);
+			if (Distance(0, 1) < 700)
+			{
+				Perform(c, "say", "救命～");			
+				ChangeBehavior(c, "wait");
+				SetTarget(0, "waypoint", 119);
+				ChangeBehavior(c3, "attacktarget", 0);
+				trg4 = 2;	
+			}
+		}	
+	}
+	if (trg4 == 2)
+	{
+			c2 = GetChar("焰");
+		c = GetChar("镖头·王卫");
+		if (GetHP(c)>10)
+		{
+			SetTarget(0, "char", c);			
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 50)
+			{
+				AddNPC("3=31");
+				Perform(c, "say", "胆小鬼，救人就杀不了我了哦～");
+				SetTarget(0, "waypoint", 114);
+				ChangeBehavior(c, "attacktarget", 0);
+				trg4 = 3;	
+				trg7 = 1;
+				trg5 = 1;
+				trg6 = 1;
+				t = now +20;
+			}
+		}	
+	}
+		if (trg4 == 3)
+	{
+		c4 = GetChar("王卫");
+		if ( GetHP(c4)<200 && GetHP(c4)>0)
+		{
+			Perform(c4, "use",8);
+			AddNPC("3=32");
+			playerPerform("say", "啊～是分身！！");
+			trg4 = 4;
+		}
+	}
+	if (trg4 == 4)
+	{
+		c4 = GetChar("王卫的分身");
+		if ( GetHP(c4)<200 && GetHP(c4)>0 && player>=0 && GetHP(player)>0)
+		{
+			Perform(c4, "use",8);
+			AddNPC("3=33");
+			playerPerform("say", "啊～是分身！！");
+			trg4 = 5;
+		}
+	}
+	if (trg4 == 5)
+	{
+		c4 = GetChar("王卫的分身·");
+		if ( GetHP(c4)<200 && GetHP(c4)>0 && player>=0 && GetHP(player)>0)
+		{
+			Perform(c4, "use",8);
+			AddNPC("3=34");
+			playerPerform("say", "啊～又是分身·！！");
+			trg4 = 6;
+		}
+	}
+	if (trg4 == 6)
+	{
+		c4 = GetChar("·王卫的分身");
+		if ( GetHP(c4)<200 && GetHP(c4)>0 && player>=0 && GetHP(player)>0)
+		{
+			Perform(c4, "use",8);
+			trg4 = 7;
+		}
+	}
+				if (trg5 == 1)
+	{
+		c2 = GetChar("镖头·王卫");
+		if (now>t)
+		{
+		Perform(c, "say", "胆小鬼，别管帮手了吧快快来挑战我。");
+		Perform(c, "pause",2);
+		Perform(c, "say", "10秒钟内看不见你的话，我就杀了你的朋友夜猫子。");
+				trg5 = 2;	
+				t = now + 15;
+		}	
+	}
+			if (trg5 == 2)
+	{
+		c2 = GetChar("镖头·王卫");
+		c = GetChar("王卫");
+		if (GetHP(c2)>10 && GetHP(c)>10)
+		{
+			SetTarget(0, "char", c);			
+			SetTarget(1, "char", c2);
+			if (Distance(0, 1) < 500)
+			{
+				ChangeBehavior(c2, "idle");
+				t = now + 15;
+				trg5 = 3;	
+			}
+		}	
+	}
+		if (trg5 == 3)
+	{
+		c2 = GetChar("镖头·王卫");
+		if (now>t)
+		{
+				SetTarget(0, "waypoint", 83);
+				ChangeBehavior(c2, "attacktarget",0,3);
+				trg5 = 4;	
+		}	
+	}
+				if (trg6 == 1)
+	{
+		c2 = GetChar("镖头·王卫");
+		if (now>t)
+		{
+			SetTarget(0, "char", c2);			
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 200)
+			{
+				ChangeBehavior(c2, "wait");
+				Perform(c2, "say", "看我厉害！");
+				trg6 = 2;	
+			}
+		}	
+	}
+			if (trg7 == 1)
+	{
+		c = GetAnyChar("焰");
+		if (GetHP(c)>10)
+		{
+				ChangeBehavior(c, "idle");
+				trg7 = 2;	
+		}	
+	}
+		if (trg7 == 2)
+	{
+		c2 = GetChar("镖头·王卫");
+		c = GetAnyChar("焰");
+		if (GetHP(c2)>10 && GetHP(c)>10)
+		{
+			SetTarget(0, "char", c);			
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 50)
+			{
+				Perform(c, "say", "谢谢你救了我，让我帮助你吧！");
+				ChangeBehavior(c, "follow",1);
+				trg7 = 3;	
+			}
+		}	
+	}
+		if (trg7 == 3)
+	{
+		c = GetAnyChar("焰");
+		if (GetHP(c)>2)
+		{
+		trg7 = 4;
+		}
+	}	
+	if (trg7 == 4)
+	{
+		c = GetAnyChar("焰");
+		if (GetHP(c)<=0)
+		{
+				PlayerPerform("use",16);
+				PlayerPerform("use",40);
+				Perform(c, "say", "以我微薄之力祝你成功");
+				trg7 = 5;	
+		}	
+	}	
+	if (trg8 == 0)
+	{
+		if (now>20)
+		{
+		PlayerPerform("block", 0);
+		PlayerPerform("crouch", 0);
+		PlayerPerform("pause", 4);
+		PlayerPerform("say", "（那边好像有人在欺负人）");
+		PlayerPerform("pause", 2);
+		PlayerPerform("say", "（终于下山了……外面的空气，新鲜啊）");
+		PlayerPerform("crouch", 1);
+		PlayerPerform("block", 1);
+		trg8 = 1;
+		}
+	}							
+	if (trg9 == 0)
+	{
+		if (GetHP(player)>2)
+		{
+		trg9 = 1;
+		}
+	}		
+		if (trg9 == 1)
+	{
+		if (GetHP(player)<=0)
+		{
+		GameOver(-1);
+		trg9 = 2;
+		}
+	}				
+		if (trg10 == 0)
+	{
+		c = GetChar("夜猫子");
+		if (GetHP(c)>2)
+		{
+		trg10 = 1;
+		}
+	}		
+		if (trg10 == 1)
+	{
+		c = GetChar("夜猫子");
+		if (GetHP(c)<=0)
+		{
+		PlayerPerform("use", 14);			
+		Perform(c2,"pause", 2);
+		Perform(c2,"say", "（夜猫子给大石头砸死了噢？）");		
+		Perform(c2,"pause", 2);
+		Perform(c2,"say", "（呀呀呀，你怎么这么不小心呀？）");		
+		trg10 = 2;
+		}
+	}			
+}

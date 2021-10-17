@@ -1,0 +1,820 @@
+// 炎硫岛(夜鸦一支舞制作)
+int Rule = 10;
+int RoundTime = 40;
+int PlayerSpawn =0;
+int PlayerSpawnDir = 180;
+int PlayerWeapon = 5;
+int PlayerWeapon2 = 6;
+int PlayerHP = 2000;
+
+int trg0 = 0;
+int trg1 = 0;
+int trg2 = 0;
+int trg3 = 0;
+int trg4 = 0;
+int trg5 = 0;
+int trg6 = 0;
+int trg7 = 0;
+int trg8 = 0;
+int trg9 = 0;
+int yyyzw = 0;
+int t;
+
+OnStart()
+{
+	AddNPC("14=1");
+	AddNPC("14=2");
+}
+
+
+OnUpdate()
+{
+	int player = GetChar("player");
+	if (player < 0)
+	{
+		return 0;
+	}
+
+	int c;
+	int c2;
+	int c3;
+	int c4;
+	int rander;
+	int now = GetGameTime();
+
+	if (yyyzw == 0)
+	{
+		if (now>2)
+		{
+			PlayerPerform("block", 0);
+			PlayerPerform("pause", 8);
+			PlayerPerform("say", "玩得愉快……");
+			PlayerPerform("pause", 8);
+			PlayerPerform("say", "欢迎交流指导");
+			PlayerPerform("pause", 1);
+			PlayerPerform("say", "  QQ:  939947468");
+			PlayerPerform("say", "交流群:84147975");
+			PlayerPerform("pause", 4);
+			PlayerPerform("say", "·夜鸦一支舞·制作……");
+			PlayerPerform("block", 1);
+			yyyzw = 1;
+		}
+	}
+	if (trg0 == 0)
+	{
+		c = GetChar("柳梢青");
+		if (c>=0 && now>20)
+		{
+			PlayerPerform("block", 0);
+			PlayerPerform("pause", 8);
+			Perform(c, "say", "去吧！");
+			Perform(c, "pause", 2);
+			Perform(c, "say", "你可以在“夜月湘春”处跳过暗器，但是之后你就必须认真对待了。");
+			Perform(c, "pause", 2);
+			Perform(c, "say", "要进我柳门，得看看你的实力。");
+			Perform(c, "pause", 2);
+			Perform(c, "say", "我是当今杀手第一大帮，柳帮的头，柳梢青。");
+			PlayerPerform("block", 1);
+			trg0 = 1;
+			t = now + 10;
+		}
+	}
+	if (trg0 == 1)
+	{
+		c = GetChar("柳梢青");
+		if (c>=0 && now>t)
+		{
+			AddNPC("14=3");
+			Perform(c, "say", "准备好了吗？来了！");
+			Perform(c, "pause", 2);
+			trg0 = 2;
+		}
+	}
+
+
+	if (trg1 == 0)
+	{
+		c = GetChar("标");
+		if (c>=0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "特隔一段时间加入满气。");
+			Perform(c, "pause", 2);
+			Perform(c, "say", "因为暗器比较容易打败。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用标的人。");
+			trg1 = 1;
+		}
+	}
+	if (trg1 == 1)
+	{
+		c = GetChar("标");
+		if (GetHP(c)<2000)
+		{
+			Perform(c, "use", 8);
+			Perform(c, "use", 33);
+			trg1 = 2;
+		}
+	}
+	if (trg1 == 2)
+	{
+		c = GetChar("标");
+		if (GetHP(c)<=1000)
+		{
+			Perform(c, "use", 4);
+			trg1 = 3;
+		}
+	}
+	if (trg1 == 3)
+	{
+		c = GetChar("标");
+		if (GetHP(c)<=0)
+		{
+			AddNPC("14=4");
+			PlayerPerform("use", 15);
+			trg1 = 4;
+		}
+	}
+	if (trg1 == 4)
+	{
+		c = GetChar("飞轮");
+		if (c>=0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "特隔一段时间加入满气。");
+			Perform(c, "pause", 2);
+			Perform(c, "say", "因为暗器比较容易打败。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用飞轮的人。");
+			trg1 = 5;
+		}
+	}
+	if (trg1 == 5)
+	{
+		c = GetChar("飞轮");
+		if (GetHP(c)<2000)
+		{
+			Perform(c, "use", 8);
+					Perform(c, "use", 33);
+			trg1 = 6;
+		}
+	}
+	if (trg1 == 6)
+	{
+		c = GetChar("飞轮");
+		if (GetHP(c)<=1000)
+		{
+			Perform(c, "use", 4);
+			trg1 = 7;
+		}
+	}
+	if (trg1 == 7)
+	{
+		c = GetChar("飞轮");
+		if (GetHP(c)<=0)
+		{
+			AddNPC("14=5");
+			PlayerPerform("use", 15);
+			trg1 = 8;
+		}
+	}
+	if (trg1 == 8)
+	{
+		c = GetChar("火铳");
+		if (c>=0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "特隔一段时间加入满气。");
+			Perform(c, "pause", 2);
+			Perform(c, "say", "因为暗器比较容易打败。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用火铳的人。");
+			trg1 = 9;
+		}
+	}
+	if (trg1 == 9)
+	{
+		c = GetChar("火铳");
+		if (GetHP(c)<2000)
+		{
+			Perform(c, "use", 8);
+					Perform(c, "use", 33);
+			trg1 = 10;
+		}
+	}
+	if (trg1 == 10)
+	{
+		c = GetChar("火铳");
+		if (GetHP(c)<=1000)
+		{
+			Perform(c, "use", 4);
+			trg1 = 11;
+		}
+	}
+	if (trg1 == 11)
+	{
+		c = GetChar("火铳");
+		c2 = GetChar("夜月湘春");
+		if (GetHP(c)<=0 && GetHP(c2)>0)
+		{
+			AddNPC("14=6");
+			RemoveNPC(c2);
+			PlayerPerform("use", 15);
+			trg1 = 12;
+			t = now + 30;
+		}
+	}
+	if (trg1 == 12)
+	{
+		c = GetAnyChar("火铳");
+		c2 = GetAnyChar("标");
+		c3 = GetAnyChar("飞轮");
+		if (now>t)
+		{
+			RemoveNPC(c2);
+			RemoveNPC(c3);
+			RemoveNPC(c);
+			trg1 = 13;
+			trg4 = 2;
+		}
+	}
+	if (trg2 == 0)
+	{
+		c = GetChar("柳梢青");
+		if (c>0)
+		{
+			SetTarget(0, "char", c);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 50)
+			{
+			SetTarget(3, "waypoint", 7);
+			ChangeBehavior(c, "attacktarget", 3, 2);
+			Perform(c, "say", "不可以打柳梢青。");
+			trg2 = 1;
+			t = now + 10;
+			}
+		}
+	}
+	if (trg2 == 1)
+	{
+		c = GetChar("柳梢青");
+		if (c>0 && now>t)
+		{
+			SetTarget(0, "char", c);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 100)
+			{
+			SetTarget(0, "waypoint", 34);
+			ChangeBehavior(c, "attacktarget", 0, 2);
+			Perform(c, "say", "别追我呀。");
+			trg2 = 2;
+			t = now + 10;
+			}
+		}
+	}
+	if (trg2 == 2)
+	{
+		c = GetChar("柳梢青");
+		if (c>0 && now>t)
+		{
+			ChangeBehavior(c, "wait");
+			Perform(c, "say", "继续~继续……");
+			trg2 = 0;
+		}
+	}
+	if (trg3 == 0)
+	{
+		c = GetChar("夜月湘春");
+		if (c>0)
+		{
+			SetTarget(0, "char", c);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 50)
+			{
+			PlayerPerform("block", 0);
+			PlayerPerform("pause", 6);
+			Perform(c, "say", "那么，打我一下就好了，一下哦。");
+			Perform(c, "pause", 1);
+			Perform(c, "say", "你确定要跳过暗器？");
+			PlayerPerform("block", 1);
+			trg3 = 1;
+			t = now + 4;
+			}
+		}
+	}
+	if (trg3 == 1)
+	{
+		c = GetChar("夜月湘春");
+		if (c>0 && now>t && GetHP(c)<GetMaxHP(c))
+		{
+			Perform(c, "say", "恩~知道了");
+			trg3 = 2;
+			t = now +5;
+		}
+	}
+	if (trg3 == 2)
+	{
+		c = GetChar("夜月湘春");
+		if (c>0 && now>t)
+		{
+				RemoveNPC(c);
+			trg3 = 3;
+			t = now +2;
+		}
+	}
+	if (trg3 == 3)
+	{
+		c2 = GetChar("标");
+		c3 = GetChar("飞轮");
+		c4 = GetChar("火铳");
+		rander = -1;
+		if (GetHP(c2)>0)
+		{
+			rander = c2;
+		}
+
+		if (GetHP(c2)<0 && GetHP(c3)>0)
+		{
+			RemoveNPC(c2);
+			trg3 = 4;
+			t = now +2;
+		}
+		if (GetHP(c3)<0 && GetHP(c4)>0)
+		{
+			RemoveNPC(c3);
+			trg3 = 5;
+			t = now +2;
+		}
+		if ( GetHP(rander)>0 && now>t)
+		{
+											RemoveNPC(rander);
+			trg3 = 4;
+			t = now +2;
+		}
+	}
+	if (trg3 == 4)
+	{
+		c2 = GetChar("标");
+		c3 = GetChar("飞轮");
+		c4 = GetChar("火铳");
+		rander = -1;
+		if (GetHP(c2)<0 && GetHP(c3)>0)
+		{
+			rander = c3;
+		}
+
+		if (GetHP(c3)<0 && GetHP(c4)>0)
+		{
+			RemoveNPC(c3);
+			trg3 = 5;
+			t = now +2;
+		}
+
+		if ( GetHP(rander)>0 && now>t)
+		{
+											RemoveNPC(rander);
+			trg3 = 5;
+			t = now +2;
+		}
+	}
+	if (trg3 == 5)
+	{
+		c2 = GetChar("标");
+		c3 = GetChar("飞轮");
+		c4 = GetChar("火铳");
+		if (GetHP(c3)<0 && GetHP(c4)>0 && now>t)
+		{									RemoveNPC(c4);
+			trg3 = 6;
+			t = now +5;
+		}
+	}
+	if (trg3 == 6)
+	{
+		if (now>t)
+		{
+			AddNPC("14=6");
+			trg3 = 7;
+			t = now +5;
+		}
+	}
+	if (trg3 == 7)
+	{
+		c = GetChar("柳梢青");
+		if (now>t && c>0)
+		{
+			Perform(c, "say", "努力哦。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "好吧，你打普通武器吧。");
+			trg3 = 8;
+			trg4 = 1;
+		}
+	}
+	if (trg4 == 0)
+	{
+		c = GetChar("双刺");
+		c2 = GetChar("夜月湘春");
+		if ( GetHP(c)>0 && GetHP(c2)>0)
+		{
+		RemoveNPC(c2);
+				trg4 = 1;
+		}
+	}
+	if (trg4 == 1)
+	{
+		c = GetChar("双刺");
+		if (c>=0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "wait");
+			Perform(c, "say", "不加入气。");
+			Perform(c, "pause", 2);
+			Perform(c, "say", "和之后的所有武器一样。");
+			Perform( c,"pause", 1);
+			Perform(c, "aggress", 1);
+			Perform(c, "say", "有礼了。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用双刺的人。");
+			PlayerPerform("use", 15);
+			trg4 = 2;
+		}
+	}
+	if (trg4 == 2)
+	{
+		c = GetChar("双刺");
+		if (GetHP(c)<=0)
+		{
+			AddNPC("14=7");
+			PlayerPerform("use", 15);
+			trg4 = 3;
+		}
+	}
+	if (trg4 == 3)
+	{
+		c = GetChar("匕首");
+		if (c>=0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "请在下赐教。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用匕首的人。");
+			trg4 = 4;
+		}
+	}
+	if (trg4 == 4)
+	{
+		c = GetChar("匕首");
+		if (GetHP(c)<=0)
+		{
+			AddNPC("14=8");
+			PlayerPerform("use", 15);
+			trg4 = 5;
+		}
+	}
+	if (trg4 == 5)
+	{
+		c = GetChar("剑");
+		if (c>=0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "承让了。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用剑的人。");
+			trg4 = 6;
+		}
+	}
+	if (trg4 == 6)
+	{
+		c = GetChar("剑");
+		if (GetHP(c)<=0)
+		{
+			AddNPC("14=10");
+			PlayerPerform("use", 15);
+			trg4 = 7;
+			t = now + 30;
+		}
+	}
+	if (trg4 == 7)
+	{
+		c = GetAnyChar("双刺");
+		c2 = GetAnyChar("匕首");
+		c3 = GetAnyChar("剑");
+		if (now>t)
+		{
+			RemoveNPC(c2);
+			RemoveNPC(c3);
+			RemoveNPC(c);
+			trg4 = 8;
+		}
+	}
+	if (trg5 == 0)
+	{
+		c = GetChar("刀");
+		if (GetHP(c)>0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "我很厉害的。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用刀的人。");
+			trg5 = 1;
+		}
+	}
+	if (trg5 == 1)
+	{
+		c = GetChar("刀");
+		if (GetHP(c)<=0)
+		{
+			AddNPC("14=9");
+			PlayerPerform("use", 15);
+			trg5 = 2;
+		}
+	}
+	if (trg5 == 2)
+	{
+		c = GetChar("长枪");
+		if (c>=0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "鼠辈，受死。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用长枪的人。");
+			trg5 = 3;
+		}
+	}
+	if (trg5 == 3)
+	{
+		c = GetChar("长枪");
+		if (GetHP(c)<=0)
+		{
+			AddNPC("14=11");
+			PlayerPerform("use", 15);
+			trg5 = 4;
+		}
+	}
+	if (trg5 == 4)
+	{
+		c = GetChar("锤");
+		if (c>=0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "纳命来。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用锤的人。");
+			trg5 = 5;
+		}
+	}
+	if (trg5 == 5)
+	{
+		c = GetChar("锤");
+		if (GetHP(c)<=0)
+		{
+			AddNPC("14=12");
+			PlayerPerform("use", 15);
+			trg5 = 6;
+			t = now + 30;
+		}
+	}
+	if (trg5 == 6)
+	{
+		c = GetAnyChar("刀");
+		c2 = GetAnyChar("长枪");
+		c3 = GetAnyChar("锤");
+		if (now>t)
+		{
+			RemoveNPC(c2);
+			RemoveNPC(c3);
+			RemoveNPC(c);
+			trg5 = 7;
+		}
+	}
+	if (trg6 == 0)
+	{
+		c = GetChar("乾坤刀");
+		if (GetHP(c)>0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "请出招吧。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用乾坤刀的人。");
+			trg6 = 1;
+		}
+	}
+	if (trg6 == 1)
+	{
+		c = GetChar("乾坤刀");
+		if (GetHP(c)<=0)
+		{
+			AddNPC("14=13");
+			PlayerPerform("use", 15);
+			trg6 = 2;
+		}
+	}
+	if (trg6 == 2)
+	{
+		c = GetChar("指虎");
+		if (c>=0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "噢米陀佛。");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用指虎的人。");
+			trg6 = 3;
+		}
+	}
+	if (trg6 == 3)
+	{
+		c = GetChar("指虎");
+		if (GetHP(c)<=0)
+		{
+			AddNPC("14=14");
+			PlayerPerform("use", 15);
+			trg6 = 4;
+		}
+	}
+	if (trg6 == 4)
+	{
+		c = GetChar("忍刀");
+		if (c>=0 && GetEnemy(c)==player )
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c, "say", "嘻嘻。（阴笑……）");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我是用忍刀的人。");
+			trg6 = 5;
+		}
+	}
+	if (trg6 == 5)
+	{
+		c = GetChar("忍刀");
+		if (GetHP(c)<=0)
+		{
+			PlayerPerform("use", 16);
+			PlayerPerform("use", 16);
+			PlayerPerform("use", 16);
+			PlayerPerform("use", 16);
+			PlayerPerform("use", 16);
+			PlayerPerform("use", 20);
+			trg6 = 6;
+			trg9 = 1;
+			t = now + 30;
+		}
+	}
+	if (trg6 == 6)
+	{
+		c = GetAnyChar("乾坤刀");
+		c3 = GetAnyChar("指虎");
+		if (now>t)
+		{
+			RemoveNPC(c3);
+			RemoveNPC(c);
+			trg6 = 7;
+		}
+	}
+		if (trg7 == 0)
+	{
+		c = GetChar("柳梢青");
+		if (GetHP(c)<=500 && now>30)
+		{
+			AddNPC("14=16");
+			trg7 = 1;
+		}
+	}
+	if (trg7 == 1)
+	{
+		c = GetChar("官差");
+		if (c>=0)
+		{
+			SetTarget(0, "waypoint", c);
+			SetTarget(1, "char", player);
+			if (Distance(0, 1) < 500)
+			{
+			ChangeBehavior(c, "follow", player);
+			Perform( c,"pause", 3);
+			Perform(c, "say", "有人故意伤害柳梢青，是不是你啊？");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "我食で官差。");
+			trg7 = 2;
+			}
+		}
+	}
+	if (trg7 == 2)
+	{
+		c = GetChar("官差");
+		if (c>=0 && GetEnemy(c)==player)
+		{
+			ChangeBehavior(c, "idle");
+			Perform(c, "say", "哦，那你继续……比武吧。");
+			Perform( c,"pause", 2);
+			PlayerPerform("say", "不是，是意外……意外。");
+			trg7 = 3;
+		}
+	}
+	if (trg7 == 3)
+	{
+		c = GetChar("官差");
+		if (GetHP(c)<2000)
+		{
+			Perform(c, "say", "瞧瞧我的厉害！");
+			Perform( c,"pause", 2);
+			Perform(c, "say", "还敢打官差。");
+			ChangeBehavior(c, "kill", player);
+			trg7 = 4;
+		}
+	}
+	if (trg7 == 4)
+	{
+		c = GetChar("官差");
+		if (GetHP(c)>0)
+		{
+			Perform(c,"use",19);
+			Perform(c,"use",8);
+			Perform(c,"use",3);
+			Perform(c,"use",4);
+			Perform(c,"use",34);
+			Perform(c,"use",23);
+			Perform(c,"use",40);
+			trg7 = 5;
+		}
+	}
+	if (trg8 == 0)
+	{
+		c = GetChar("官差");
+		if (GetHP(c)<1000)
+		{
+			Perform( c,"use", 15);
+			trg8 = 1;
+			t = now + 10;
+		}
+	}
+	if (trg8 == 1)
+	{
+		c = GetChar("官差");
+		if (now>t)
+		{
+			Perform( c,"say", "你活腻味了！");
+			trg8 = 0;
+		}
+	}
+	if (trg9 == 1)
+	{
+		c = GetChar("柳梢青");
+		if (GetHP(c)>10)
+		{
+			Perform( c,"say", "对于新手来说的确难了点，看你能伤他多少？");
+			Perform( c, "pause",2);
+			Perform( c,"say", "要让你见识吗？呵呵上吧看看这个人你能否打败。");
+			Perform( c, "pause",2);
+			Perform( c, "aggress");
+			Perform( c,"say", "呵呵，你还不错嘛，可是这并不是武林的水平。");
+			trg9 = 2;
+
+		}
+	}
+	if (trg9 == 2)
+	{
+		c = GetChar("柳梢青");
+		if (GetHP(c)>10)
+		{
+			AddNPC("14=15");
+			trg9 = 3;
+			t = now + 15;
+		}
+	}
+	if (trg9 == 3)
+	{
+		c = GetChar("霜叶飞");
+		if (GetHP(player)>1000 && GetHP(c)>10 && GetHP(c)<4000 && now>t)
+		{
+			ChangeBehavior(c, "follow", player);
+			Perform(c,"use",19);
+			Perform(c,"use",8);
+			Perform(c,"use",5);
+			Perform(c,"use",4);
+			Perform(c,"use",39);
+			Perform(c,"say", "怒！");
+			trg9 = 4;
+			t = now + 20;
+		}
+	}
+		if (trg9 == 4)
+	{
+		c = GetChar("柳梢青");
+		c2 = GetChar("霜叶飞");
+		if (now>t && GetHP(c2)<2900)
+		{
+			Perform( c,"say", "通过拉！");
+			Perform( c,"pause",2);
+			Perform( c,"say", "好了。别太认真，你还待学习啊～");
+			Perform( c2, "pause", 5);
+			trg9 = 5;
+			t = now + 5;
+		}
+	}
+	if (trg9 == 5)
+	{
+		c = GetChar("柳梢青");
+		if (now>t)
+		{
+		GameOver(1);
+			trg9 = 6;
+		}
+	}
+}
