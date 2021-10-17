@@ -1,0 +1,50 @@
+string Name	= "√…√Ê»À©qº◊";
+int Model =	10;
+int Weapon = 30;
+int Weapon2 = 0;
+int Team = 2;
+int View = 800;
+int Think = 80;
+int	Attack1	= 40;
+int Attack2 = 30;
+int Attack3 = 10;
+int	Guard =	20;
+int	Dodge =	30;
+int Jump = 20;
+int Look = 50;
+int Burst = 20;
+int Aim = 80;
+int GetItem = 50;
+int Spawn = 129;
+int HP = 1500;	
+
+int g_selfAddr;
+int g_self;
+OnInit(int this)
+{
+	g_selfAddr = this;
+}
+
+OnStart()
+{
+	g_self = GetSelf(g_selfAddr);
+	//ChangeBehavior(g_self, "patrol", 129, 73, 133, 134, 71, 79, 78, 77, 74, 69);
+	ChangeBehavior(g_self, "follow", "player");
+}
+
+Attack(int enable)
+{
+	if (enable)
+	{
+		Attack1 = 40;
+		Attack2 = 30;
+		Attack3 = 10;
+		UpdateAIAttrib(g_self);
+	} else
+	{
+		Attack1 = 0;
+		Attack2 = 0;
+		Attack3 = 0;
+		UpdateAIAttrib(g_self);		
+	}
+}
