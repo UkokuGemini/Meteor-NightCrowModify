@@ -1,0 +1,33 @@
+string Name	= "ËªÒ¶·É";
+int Model =	25;
+int Weapon = 59;
+int Weapon2 = 59;
+int Team = 2;
+int View = 10000;
+int Think = 10000;
+int	Attack1	= 20;
+int Attack2 = 20;
+int Attack3 = 20;
+int	Guard =	50;
+int	Dodge =	40;
+int Jump = 10;
+int Look = 0;
+int Burst = 60;
+int Aim = 100;
+int GetItem = 60;
+int Spawn = 0;
+int HP = 5000;
+
+
+int g_selfAddr;
+int g_self;
+OnInit(int this)
+{
+	g_selfAddr = this;
+}
+
+OnStart()
+{
+	g_self = GetSelf(g_selfAddr);
+	ChangeBehavior(g_self, "follow",1);
+}
